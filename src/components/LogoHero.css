@@ -22,7 +22,7 @@
      720 px viewport). Each variant has a different height so the
      hero's vertical rhythm settles into whatever the picked
      logo's height + this margin is. */
-  margin: 0 auto 16px;
+  margin: 0 auto 4px;
   width: 100%;
   user-select: none;
   -webkit-user-drag: none;
@@ -32,35 +32,49 @@
   /* Cap BOTH dimensions and let the natural aspect ratio decide
      which one binds. width: auto + height: auto + max-width /
      max-height + object-fit: contain is the canonical "fit
-     inside a box without distortion" recipe. */
+     inside a box without distortion" recipe. The cap is roughly
+     DOUBLE the previous size — the oversized logo now owns the
+     first viewport as the hero centrepiece; the H1 + CTAs live
+     just below it and you scroll past the logo to reach them
+     (as you do, the same artwork docks into the top nav). The
+     `min(…, 90vw)` keeps the widest variants from overflowing on
+     mid-size laptops. */
   display: block;
   width: auto;
   height: auto;
-  max-width: 480px;
-  max-height: 220px;
+  /* Big again — with the lede paragraph + stats strip removed from the
+     hero there's room for a bold logo while the hero stays compact
+     (logo → headline → download button, then the download banner). */
+  max-width: min(820px, 88vw);
+  max-height: 400px;
   object-fit: contain;
-  /* Soft warm glow behind the logo so it reads as a centerpiece
-     and not as a floating sticker on the dark canvas. Uses the
-     brand amber at low alpha so it doesn't fight the colors in
-     the logo itself. */
-  filter: drop-shadow(0 12px 32px rgba(245, 158, 11, 0.12));
+  /* Warm amber glow behind the logo so it reads as a centrepiece
+     and not as a floating sticker on the dark canvas. Scaled up
+     with the bigger logo; uses the brand amber at low alpha so it
+     doesn't fight the colours in the logo itself. */
+  filter: drop-shadow(0 18px 56px rgba(242, 169, 59, 0.16));
 }
 
-/* Phones: shrink so the logo doesn't push the H1 off-screen,
-   and leave room for the CTAs above the visible area. */
+/* Phones / small laptops: scale the height cap down so the logo
+   stays a comfortable hero size; the min(…, 90vw) width cap above
+   keeps it from ever overflowing the viewport. */
+@media (max-width: 980px) {
+  .logo-hero__img {
+    max-height: 220px;
+  }
+}
+
 @media (max-width: 720px) {
   .logo-hero {
     margin-bottom: 12px;
   }
   .logo-hero__img {
-    max-width: 360px;
-    max-height: 170px;
+    max-height: 180px;
   }
 }
 
 @media (max-width: 460px) {
   .logo-hero__img {
-    max-width: 280px;
-    max-height: 140px;
+    max-height: 200px;
   }
 }

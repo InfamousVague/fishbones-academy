@@ -6,15 +6,15 @@ import { CATALOG } from "../data/courses";
 import "./Languages.css";
 
 const RUN_LABEL: Record<Language["run"], string> = {
-  browser: "Runs in browser",
+  browser: "Instant",
   sandbox: "Hosted sandbox",
-  local: "Desktop only",
+  local: "Native runtime",
 };
 
 export function Languages() {
   useSeo({
     title: `${LANGUAGES.length} Programming Languages — Free Interactive Courses Online | Libre Academy`,
-    description: `Libre Academy supports ${LANGUAGES.length} programming languages — JavaScript, Python, Rust, Go, Solidity, TypeScript, and more. Free courses, real browser runtimes, zero install.`,
+    description: `Libre Academy supports ${LANGUAGES.length} programming languages — JavaScript, Python, Rust, Go, Solidity, TypeScript, and more. Free courses with real runtimes in the free desktop app.`,
     canonicalUrl: "https://libre.academy/languages",
   });
   // Bucket by execution mode so the page reads as three groups: things
@@ -33,20 +33,20 @@ export function Languages() {
       <header className="languages-page__head section section--narrow">
         <span className="section__eyebrow">Programming languages</span>
         <h1 className="section__title">
-          Learn {LANGUAGES.length} programming languages — free, in your browser.
+          Learn {LANGUAGES.length} programming languages — free, in one app.
         </h1>
         <p className="section__subtitle">
           Every language Libre Academy supports, with its real runtime and
-          a free course library. Browser-runnable languages start the first
-          lesson with one click; compiled languages run via hosted
-          sandboxes or the optional desktop app.
+          a free course library. The free desktop app runs them all — scripting
+          languages execute instantly, compiled ones run via hosted sandboxes
+          or your local toolchain.
         </p>
       </header>
 
       <section className="section">
         <Group
-          title="In your browser"
-          blurb="No setup. No install. Lessons grade themselves in a Web Worker, an iframe, or Pyodide — pick a course and start writing code in 30 seconds."
+          title="Instant runtimes"
+          blurb="No toolchain to set up. These languages execute the moment you hit Run — in a Web Worker, an iframe, or Pyodide — and the hidden tests grade your code in place."
           languages={browser}
           counts={courseCounts}
         />

@@ -9,19 +9,16 @@ import {
   ShieldOff,
   Flame,
   Cpu,
-  PlayCircle,
   Download,
 } from "lucide-react";
 import { LANGUAGES } from "../data/languages";
 import { COURSE_COUNT_ROUNDED, LANGUAGE_COUNT } from "../lib/siteStats";
-import { ParticleField } from "../components/spotlights/ParticleField";
-import { WorkbenchSpotlight } from "../components/spotlights/WorkbenchSpotlight";
-import { EvmChainSpotlight } from "../components/spotlights/EvmChainSpotlight";
 import { BookCarousel } from "../components/spotlights/BookCarousel";
 import { CodecademyComparison } from "../components/CodecademyComparison";
 import { MoreComparisons } from "../components/MoreComparisons";
-import { LandingEditor } from "../components/LandingEditor";
 import { LogoHero } from "../components/LogoHero";
+import { ParallaxBg } from "../components/ParallaxBg";
+import { ScrollAsset } from "../components/ScrollAsset";
 import "./Home.css";
 
 /// Homepage architecture:
@@ -66,7 +63,7 @@ const FEATURES = [
   },
   {
     icon: Code2,
-    title: "In-browser code editor",
+    title: "Built-in code editor",
     body:
       "A real Monaco editor (the engine VS Code is built on) opens next to every lesson. Click Run, see test output instantly. No tab-switching, no localhost setup, no Docker.",
   },
@@ -84,22 +81,10 @@ const FEATURES = [
   },
 ];
 
-/// Stat strip sits under the hero. Numbers compete with Codecademy's
-/// homepage ("50+ million learners") not on raw scale but on the
-/// stuff Codecademy can't claim: more languages, browser-native,
-/// free forever. Headline numbers stay rounded so they don't look
-/// stale between releases.
-const STATS = [
-  { value: "26+", label: "Languages covered" },
-  { value: COURSE_COUNT_ROUNDED, label: "Free courses" },
-  { value: "1,500+", label: "Interactive lessons" },
-  { value: "$0", label: "No paywall, ever" },
-];
-
 const FEATURE_ROWS = [
   {
-    eyebrow: "Runs in your browser",
-    title: "Twenty-six programming languages. Zero installs.",
+    eyebrow: "Every language, one app",
+    title: "Twenty-six programming languages. One download.",
     body:
       "JavaScript, TypeScript and Python run in-browser via Web Workers and Pyodide. Solidity compiles with solc-js and executes on an in-process EVM. Rust and Go proxy to the official playgrounds. C, C++, Java, Kotlin, C#, Swift, Zig and Assembly run on your local toolchain through the optional desktop app — and if a compiler is missing, Libre Academy offers a one-click install.",
     bullets: [
@@ -110,28 +95,40 @@ const FEATURE_ROWS = [
     ],
   },
   {
-    eyebrow: "Bring your own book",
-    title: "Turn any technical book into a course.",
-    body:
-      "The optional desktop app runs technical books and docs sites through a Claude-powered ingest pipeline. It chunks chapters, drafts interactive lessons, and generates starter code, hidden tests, and worked solutions. Every generated lesson is verified by running it before it lands in your library — failed validations demote to reading lessons rather than silently ship.",
-    bullets: [
-      "Import PDF + EPUB — Claude structures the chapter outline",
-      "Auto-generates starter code, solutions, hidden tests, hints",
-      "Docs-site crawler turns any HTML reference into a course",
-      "Bundle + re-share your course as a portable .academy file",
-    ],
-  },
-  {
     eyebrow: "Free + open source",
     title: "No paywall. No signup wall. No data harvesting.",
     body:
-      "Libre Academy is free forever — MIT licensed, no premium tier, no upsell. Progress lives in your browser's IndexedDB (or SQLite on the desktop app). The AI tutor defaults to a local Ollama model so your conversations stay on your machine. No analytics, no error reporters, no tracking pixels. Sign up only if you want to sync XP between devices — and even then, all we store is a tiny JSON progress record.",
+      "Libre Academy is free forever — MIT licensed, no premium tier, no upsell. Progress lives in a local SQLite database on your machine. The AI tutor defaults to a local Ollama model so your conversations stay on your machine. No analytics, no error reporters, no tracking pixels. Sign up only if you want to sync XP between devices — and even then, all we store is a tiny JSON progress record.",
     bullets: [
       "Free forever — MIT licensed source on GitHub",
       "No account required to learn — sample any course in 30 seconds",
       "Optional cloud sync — just XP + completion timestamps",
       "AI tutor defaults to local Ollama, never a third-party API",
     ],
+  },
+];
+
+/// Per long-form row theme, by index. A themed row gets a parallaxing
+/// genre atmosphere + a scroll-driven moving asset + its accent colour;
+/// `null` rows stay solid black, so the page alternates themed scenes
+/// with calm black breathers (and we only need a handful of bg images).
+const ROW_THEMES: Array<
+  | { theme: string; bg: string; asset: { src: string; place: string } }
+  | null
+> = [
+  // Row 0 — "every language, one app" → kaiju (teal).
+  {
+    theme: "theme-kaiju",
+    bg: "bg-courses-hero.jpg",
+    asset: { src: "asset-kaiju.png", place: "kaiju" },
+  },
+  // Row 1 — "bring your own book" → solid black breather.
+  null,
+  // Row 2 — "free + open source" → alien invasion (lime).
+  {
+    theme: "theme-alien",
+    bg: "bg-languages-hero.jpg",
+    asset: { src: "asset-saucer.png", place: "saucer" },
   },
 ];
 
@@ -149,19 +146,21 @@ export function Home() {
             4. Stats strip
           The artwork carries the visual identity; the copy
           underneath delivers the value prop without fighting it. */}
-      <section className="home-hero">
-        {/* Ambient particle overlay — drifting blue dots that
-            respond to the cursor with gentle parallax. Sits behind
-            the artwork + content. Intentionally low count (80) so
-            it reads as atmosphere not noise. */}
-        <ParticleField className="home-hero__particles" count={80} />
+      <section className="home-hero parallax-host">
+        {/* Cosmic deep-space atmosphere — the nebula + planets fill
+            the hero, gently parallaxing on scroll. Small travel so the
+            nebula stays framed around the logo at the top of the page. */}
+        <ParallaxBg
+          src="bg-home-hero.jpg"
+          position="center top"
+          fade="bottom"
+          travel={28}
+        />
 
         <div className="home-hero__inner home-hero__inner--stacked">
-          {/* Big rotating logo — picks one of the variants under
-              /public/logos/ at random on every page load. Brand
-              first impression sits above the eyebrow / H1 / lede.
-              See LogoHero.tsx for the rotation list and the
-              CLS / fetchpriority notes. */}
+          {/* Big groovy psychedelic logo — the brand first impression,
+              sitting above the eyebrow / H1 / lede. The same artwork
+              the header uses. */}
           <LogoHero />
           <motion.div
             className="home-hero__copy"
@@ -185,87 +184,26 @@ export function Home() {
               Learn to code, free. {COURSE_COUNT_ROUNDED} courses, {LANGUAGE_COUNT} languages,
               zero paywall.
             </h1>
-            <p className="home-hero__lede">
-              Real editor. Hidden tests grade your code. {LANGUAGE_COUNT} languages
-              in your browser, hand-crafted courses, MIT-licensed end to end.
-              The open-source alternative to Codecademy — no signup, no email,
-              no upsell.
-            </p>
-            <div className="home-hero__actions">
-              <a href="/learn" className="btn btn--primary btn--lg">
-                <PlayCircle size={16} /> Start learning free
-                <ArrowRight size={14} />
-              </a>
-              {/* Secondary CTA is the desktop-app download path —
-                  the hybrid story is a real moat vs Codecademy's
-                  web-only product. /download owns OS detection +
-                  the per-platform release lookup. */}
-              <Link to="/download" className="btn btn--ghost btn--lg">
-                <Download size={16} /> Download the desktop app
-              </Link>
-            </div>
-            <p className="home-hero__hint">
-              No credit card. No email. Sample any course in 30 seconds.
-            </p>
           </motion.div>
         </div>
-
-        {/* ─── Stats strip ────────────────────────────── */}
-        <div className="home-stats">
-          {STATS.map((s, i) => (
-            <motion.div
-              key={s.label}
-              className="home-stats__item"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 + i * 0.08, ease: "easeOut" }}
-            >
-              <span className="home-stats__value">{s.value}</span>
-              <span className="home-stats__label">{s.label}</span>
-            </motion.div>
-          ))}
-        </div>
       </section>
-
-      {/* ─── Landing editor demo (lazy Monaco) ──────────────
-          Sits right under the hero so the first scroll already
-          puts the visitor face-to-face with real code in a real
-          editor. The component renders a skeleton until it
-          scrolls into view; Monaco's 3 MB chunk only fetches
-          when the user nears the section. */}
-      <LandingEditor />
-
-      {/* ─── Spotlight 1: Workbench ──────────────────────── */}
-      <WorkbenchSpotlight />
-
-      {/* ─── Spotlight 2: Book carousel ──────────────────────
-          Promoted up under Workbench so visitors see the breadth
-          of the catalog immediately after the "this is what
-          coding here feels like" Workbench moment. Old order had
-          this last; the new arc reads: editor → shelf → deeper
-          tools (EVM / Trees). */}
+      {/* ─── Book carousel ───────────────────────────────── */}
       <BookCarousel />
 
-      {/* ─── Spotlight 3: EVM chain (replica of in-app ChainDock) ── */}
-      <EvmChainSpotlight />
-
-      {/* ─── "Why Libre vs Codecademy" comparison ───────────
-          3-column table (Libre / Codecademy Free / Codecademy
-          Pro) + a "No paywall, ever" pull-quote closer. Sits
-          here after the editor + catalog spotlights so the
-          reader has the proof in mind before they hit the
-          honest, row-by-row comparison. */}
-      <CodecademyComparison />
-
-      {/* ─── "Also compared to" — Treehouse + DataCamp ─────
-          Two follow-up mini-comparisons. Captures the
-          "Treehouse alternative" and "DataCamp alternative"
-          search intents without burying the marquee Codecademy
-          table above. */}
-      <MoreComparisons />
-
       {/* ─── Feature cards ──────────────────────────────── */}
-      <section className="section section--tight" id="features">
+      <section
+        className="section section--tight parallax-host theme-robots"
+        id="features"
+      >
+        <ParallaxBg src="bg-showcase.jpg" fade="both" />
+        <ScrollAsset
+          src="asset-robot.png"
+          place="robot"
+          y={[60, -60]}
+          rotateZ={[-3, 3]}
+          rotateY={[-9, 9]}
+          scale={[1, 1.06]}
+        />
         <div className="home-row-head home-row-head--centered">
           <span className="section__eyebrow">What you get, for free</span>
           {/* H2 mirrors the H1 head term ("interactive coding
@@ -275,7 +213,7 @@ export function Home() {
               "here's why it's different from other free-courses
               sites" not just "here are some features." */}
           <h2 className="section__title section__title--centered">
-            Everything you need to learn to code online — free.
+            Yes, FREE! Unlike college...
           </h2>
           <p className="section__subtitle section__subtitle--centered">
             Interactive lessons, a real in-browser code editor, and
@@ -302,16 +240,30 @@ export function Home() {
         </div>
       </section>
 
-      {/* ─── Long-form feature rows ─────────────────────── */}
-      {FEATURE_ROWS.map((row, i) => (
+      {/* ─── Long-form feature rows — alternating themed parallax
+          scenes and solid-black breathers (see ROW_THEMES). ─────── */}
+      {FEATURE_ROWS.map((row, i) => {
+        const t = ROW_THEMES[i];
+        return (
         <motion.section
           key={row.eyebrow}
-          className="section home-row"
+          className={`section home-row${t ? ` parallax-host ${t.theme}` : ""}`}
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
+          {t && <ParallaxBg src={t.bg} fade="both" />}
+          {t && (
+            <ScrollAsset
+              src={t.asset.src}
+              place={t.asset.place}
+              y={[50, -50]}
+              rotateZ={[-3, 3]}
+              rotateY={[-9, 9]}
+              scale={[1, 1.06]}
+            />
+          )}
           <div
             className={`home-row__layout${i % 2 === 1 ? " home-row__layout--reverse" : ""}`}
           >
@@ -334,27 +286,46 @@ export function Home() {
             </aside>
           </div>
         </motion.section>
-      ))}
+        );
+      })}
 
-      {/* ─── Final CTA ──────────────────────────────────── */}
-      <section className="section section--narrow home-final">
+      {/* ─── Comparisons (moved to the bottom) ───────────────
+          The marquee Codecademy table + the Treehouse / DataCamp
+          mini-comparisons. Kept on a solid-black stretch near the
+          foot of the page so the honest row-by-row proof is the
+          last thing before the closing download CTA. */}
+      <CodecademyComparison />
+      {/* ─── Download banner — moved up to sit just under the
+          hero (time-warp scene, violet). ─────────────────────── */}
+      <section className="section section--narrow home-final parallax-host theme-timewarp">
+        <ParallaxBg src="bg-final-cta.jpg" fade="both" opacity={0.85} />
+        <ScrollAsset
+          src="asset-rocket.png"
+          place="rocket"
+          y={[40, -150]}
+          rotateZ={[-4, 6]}
+          rotateY={[-8, 10]}
+          scale={[0.95, 1.12]}
+        />
         <h2 className="section__title section__title--centered">
-          Start learning to code — free, today.
+          Download Libre Academy — free til' the heat death of the universe.
         </h2>
         <p className="section__subtitle section__subtitle--centered">
-          Twenty-six languages, forty-seven courses, fifteen-hundred-plus
-          interactive lessons. No signup, no credit card. Just pick a course and
-          start writing code.
+          Twenty-six languages, {COURSE_COUNT_ROUNDED} courses, fifteen-hundred-plus
+          interactive lessons — all in one free, open-source app. No signup, no
+          credit card. Install it and start writing code.
         </p>
         <div className="home-final__actions">
-          <a href="/learn" className="btn btn--primary btn--lg">
-            <PlayCircle size={16} /> Start learning free
-          </a>
+          <Link to="/download" className="btn btn--warm btn--lg">
+            <Download size={16} /> Download the desktop app
+          </Link>
           <Link to="/courses" className="btn btn--ghost btn--lg">
             Browse all courses <ArrowRight size={14} />
           </Link>
         </div>
       </section>
+
+      <MoreComparisons />
     </div>
   );
 }

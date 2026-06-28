@@ -17,13 +17,13 @@ body {
   color: var(--color-text-primary);
   line-height: 1.55;
   font-size: 15px;
-  /* Subtle vignette so the hero's negative space doesn't look flat.
-     Pure radial gradient — no SVG noise — keeps the file small and
-     repaints cheap. */
-  background-image:
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 255, 255, 0.04), transparent 60%),
-    radial-gradient(ellipse 60% 80% at 100% 100%, rgba(255, 255, 255, 0.02), transparent 60%);
-  background-attachment: fixed;
+  /* Absorb the full-viewport breakout of the `.atmos--bleed`
+     section backgrounds so they never spawn a horizontal scrollbar. */
+  overflow-x: hidden;
+  /* (Dropped the fixed radial-gradient vignette — `background-
+     attachment: fixed` forced a full-viewport repaint on every scroll
+     frame, which was a major source of scroll-jank. The section
+     atmospheres carry the visual interest now.) */
 }
 
 a {
@@ -146,6 +146,28 @@ img { max-width: 100%; display: block; }
   color: var(--color-bg-primary);
 }
 
+/* Amber "download" CTA — the brand-warm primary used for the
+   conversion buttons (hero, final CTA, nav). A two-stop amber→
+   terracotta gradient on a burnt-amber rim, with a soft amber glow,
+   so the most important action on a download-first site carries the
+   paperback identity rather than reading as another monochrome pill. */
+.btn--warm {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-warm) 0%,
+    var(--color-accent-warm-hover) 100%
+  );
+  color: #1a1206;
+  border-color: color-mix(in srgb, var(--color-accent-warm-deep) 70%, transparent);
+  box-shadow: 0 8px 24px rgba(242, 169, 59, 0.22);
+}
+.btn--warm:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  color: #1a1206;
+  box-shadow: 0 12px 32px rgba(242, 169, 59, 0.32);
+}
+
 .btn--ghost {
   background: transparent;
   color: var(--color-text-primary);
@@ -176,6 +198,209 @@ img { max-width: 100%; display: block; }
   padding: 14px 26px;
   font-size: 15px;
   border-radius: 12px;
+}
+
+/* Homepage section anchor (#features) lives behind the fixed nav —
+   offset its scroll target so the heading clears the bar instead of
+   hiding under it. */
+#features {
+  scroll-margin-top: 84px;
+}
+
+/* ────────── Vintage paperback section atmospheres ──────────
+   Decorative 1960s sci-fi backdrops behind heroes + key sections.
+   `.atmos` paints a section-filling ::before BEHIND the content
+   (z-index:-1 inside an isolated stacking context, so no per-child
+   z-index juggling is needed). `.atmos--bleed` breaks the backdrop
+   out to the full viewport width for the max-width `.section`
+   blocks (body has overflow-x:hidden to absorb it). Each
+   `.atmos--<name>` modifier supplies the image, focal position, a
+   soft edge-fade mask so the art melts into the near-black canvas,
+   and an opacity tuned to keep overlaid text legible. */
+.atmos {
+  position: relative;
+  isolation: isolate;
+}
+.atmos::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.atmos--bleed::before {
+  left: calc(50% - 50vw);
+  width: 100vw;
+}
+
+/* Home hero — cosmic nebula + ringed planets in the top corners,
+   near-black well in the centre/bottom for the logo + headline.
+   Full-width section, so no bleed; fade the bottom into the canvas. */
+.atmos--home::before {
+  background-image: url("/backgrounds/bg-home-hero.jpg");
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+}
+
+/* Screenshot showcase — raygun-gothic launch pad hugging the bottom
+   edge, dark above for the heading + screenshots. */
+.atmos--showcase::before {
+  background-image: url("/backgrounds/bg-showcase.jpg");
+  background-position: center bottom;
+  opacity: 0.8;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 26%, transparent 70%);
+  mask-image: linear-gradient(to top, #000 0%, #000 26%, transparent 70%);
+}
+
+/* Final CTA — amber time-warp vortex. The vortex centre is bright,
+   so a radial near-black scrim is stacked over it to keep the
+   centred headline + button readable. */
+.atmos--final::before {
+  background-image:
+    radial-gradient(ellipse 60% 70% at 50% 50%, rgba(9, 9, 11, 0.82) 0%, rgba(9, 9, 11, 0.2) 48%, transparent 70%),
+    url("/backgrounds/bg-final-cta.jpg");
+  background-position: center, center;
+  opacity: 0.85;
+}
+
+/* Download hero — finned rocket ascending on the left, dark right. */
+.atmos--download::before {
+  background-image: url("/backgrounds/bg-download-hero.jpg");
+  background-position: left center;
+  opacity: 0.8;
+  -webkit-mask-image: linear-gradient(to bottom, #000 64%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 64%, transparent 100%);
+}
+
+/* Courses hero — kaiju over a pulp city skyline along the bottom,
+   dark sky above for the headline. */
+.atmos--courses::before {
+  background-image: url("/backgrounds/bg-courses-hero.jpg");
+  background-position: center bottom;
+  opacity: 0.62;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 24%, transparent 74%);
+  mask-image: linear-gradient(to top, #000 0%, #000 24%, transparent 74%);
+}
+
+/* Blog hero — vintage B-movie horror hugging the bottom, dark above
+   for the blog title + post list. */
+.atmos--blog::before {
+  background-image: url("/backgrounds/bg-blog-hero.jpg");
+  background-position: center bottom;
+  opacity: 0.66;
+  -webkit-mask-image: linear-gradient(to top, #000 0%, #000 22%, transparent 72%);
+  mask-image: linear-gradient(to top, #000 0%, #000 22%, transparent 72%);
+}
+
+/* The shorter page heroes get a little vertical room so the
+   bottom-anchored atmospheres have space to read. */
+.atmos--courses,
+.atmos--languages,
+.atmos--blog {
+  min-height: 300px;
+}
+
+/* Languages hero — alien-invasion sky of saucers + worlds up top. */
+.atmos--languages::before {
+  background-image: url("/backgrounds/bg-languages-hero.jpg");
+  background-position: center top;
+  opacity: 0.7;
+  -webkit-mask-image: linear-gradient(to bottom, #000 52%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 52%, transparent 100%);
+}
+
+/* About hero — cold-war noir; venetian-blind light + lamp on the left. */
+.atmos--about::before {
+  background-image: url("/backgrounds/bg-about-hero.jpg");
+  background-position: left center;
+  opacity: 0.75;
+}
+
+/* ────────── Per-section genre accent colours ──────────
+   Each themed section sets `--sec-accent` (+ a soft tint and a glow
+   alpha) to its genre's signature hue. The section's eyebrow and its
+   interactive/decorative accents pick this up, so each section reads
+   in its own colour while amber stays the global brand base (text,
+   nav, the home hero, and the literal Download CTAs all stay amber).
+   The hues are the same signatures used in the background art. */
+.theme-robots {
+  --sec-accent: #e0573f;
+  --sec-accent-soft: rgba(224, 87, 63, 0.16);
+  --sec-accent-glow: rgba(224, 87, 63, 0.32);
+}
+.theme-kaiju {
+  --sec-accent: #57c4b0;
+  --sec-accent-soft: rgba(87, 196, 176, 0.16);
+  --sec-accent-glow: rgba(87, 196, 176, 0.3);
+}
+.theme-alien {
+  --sec-accent: #a7d96f;
+  --sec-accent-soft: rgba(167, 217, 111, 0.16);
+  --sec-accent-glow: rgba(167, 217, 111, 0.3);
+}
+.theme-timewarp {
+  --sec-accent: #9b7bd6;
+  --sec-accent-soft: rgba(155, 123, 214, 0.18);
+  --sec-accent-glow: rgba(155, 123, 214, 0.34);
+}
+.theme-horror {
+  --sec-accent: #9fb3d0;
+  --sec-accent-soft: rgba(159, 179, 208, 0.16);
+  --sec-accent-glow: rgba(159, 179, 208, 0.28);
+}
+.theme-amber {
+  --sec-accent: var(--color-accent-warm);
+  --sec-accent-soft: var(--color-accent-warm-subtle);
+  --sec-accent-glow: rgba(242, 169, 59, 0.3);
+}
+.theme-mainframe {
+  --sec-accent: #4a86e0;
+  --sec-accent-soft: rgba(74, 134, 224, 0.16);
+  --sec-accent-glow: rgba(74, 134, 224, 0.3);
+}
+
+/* Eyebrow takes the section accent when one is set; otherwise it
+   stays the neutral tertiary grey it was. */
+.section__eyebrow {
+  color: var(--sec-accent, var(--color-text-tertiary));
+}
+
+/* Text that floats DIRECTLY over a themed parallax atmosphere or a
+   moving asset gets a soft drop-shadow so it never washes out against
+   the artwork. (Text inside solid cards has its own backing and is
+   left alone.) */
+/* HEAVY shadow — copy that sits directly over a busy MOVING ASSET
+   (the long-form rows + the Features heading). A tight near-black
+   outline plus a wide soft spread darkens the halo behind the glyphs
+   so the copy never blends into the artwork (e.g. the kaiju behind
+   the row text). */
+.parallax-host .home-row__copy .section__eyebrow,
+.parallax-host .home-row__copy .section__title,
+.parallax-host .home-row__copy .home-row__body,
+.parallax-host .home-row__copy .home-row__bullets,
+.parallax-host .home-row-head .section__eyebrow,
+.parallax-host .home-row-head .section__title,
+.parallax-host .home-row-head .section__subtitle,
+.parallax-host > .section__title,
+.parallax-host > .section__subtitle,
+.parallax-host > .section__eyebrow {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 1px 5px rgba(0, 0, 0, 0.9),
+    0 3px 52px rgba(0, 0, 0, 0.8);
+}
+
+/* LIGHT shadow — the hero copy sits over the calm dark space backdrop,
+   and the H1's bright gradient fill would go muddy under a heavy
+   shadow, so it gets only a soft lift. */
+.home-hero__title,
+.home-hero__lede,
+.home-hero__hint {
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
 }
 
 /* ────────── Cards ────────── */

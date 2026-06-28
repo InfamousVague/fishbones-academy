@@ -9,7 +9,6 @@ import {
   ExternalLink,
   FileText,
   Layers,
-  PlayCircle,
   Puzzle,
   SquareDashed,
   type LucideIcon,
@@ -237,7 +236,7 @@ export function CourseDetail() {
               ? course.description
               : catalogEntry.packType === "challenges"
                 ? `A curated set of ${catalogEntry.languageLabel} kata problems with hidden tests grading each one. Difficulty tiers from easy to hard, organised by topic.`
-                : `A linear ${catalogEntry.languageLabel} course with reading lessons, hands-on exercises, and quizzes — every lesson runnable in your browser.`}
+                : `A linear ${catalogEntry.languageLabel} course with reading lessons, hands-on exercises, and quizzes — every lesson runnable in the free desktop app.`}
           </p>
           <div className="course-detail__hero-actions">
             {/* Open-in-app CTA. Promoted to primary when we've seen
@@ -247,36 +246,35 @@ export function CourseDetail() {
                 "Start in browser" as the primary so the worst case is
                 always one click into a working preview, not a dialog
                 they have to dismiss. */}
+            {/* Download-first: the marquee action is always installing
+                the app. When this device has opened the desktop app
+                before (hasApp), we lead with "Open in Libre" instead —
+                they already have it — and keep Download as the
+                secondary. */}
             {hasApp === true ? (
               <>
                 <button
                   type="button"
-                  className="btn btn--primary btn--lg"
+                  className="btn btn--warm btn--lg"
                   onClick={() => void openInLibre(catalogEntry.id)}
                 >
                   <ExternalLink size={16} /> Open in Libre
                 </button>
-                <a
-                  href={`/learn/?courseId=${encodeURIComponent(catalogEntry.id)}`}
-                  className="btn btn--ghost btn--lg"
-                >
-                  <PlayCircle size={14} /> Start in browser
-                </a>
+                <Link to="/download" className="btn btn--ghost btn--lg">
+                  <DownloadIcon size={14} /> Get the latest version
+                </Link>
               </>
             ) : (
               <>
-                <a
-                  href={`/learn/?courseId=${encodeURIComponent(catalogEntry.id)}`}
-                  className="btn btn--primary btn--lg"
-                >
-                  <PlayCircle size={16} /> Start in your browser{" "}
+                <Link to="/download" className="btn btn--warm btn--lg">
+                  <DownloadIcon size={16} /> Download the app{" "}
                   <ArrowRight size={14} />
-                </a>
+                </Link>
                 <button
                   type="button"
                   className="btn btn--ghost btn--lg"
                   onClick={() => void openInLibre(catalogEntry.id)}
-                  title="Requires the desktop app — installs from the Download page"
+                  title="Already installed? Open this course in the desktop app"
                 >
                   <ExternalLink size={14} /> Open in Libre
                 </button>
@@ -340,12 +338,9 @@ export function CourseDetail() {
                     <div className="course-detail__hint">Rendering preview…</div>
                   )}
                   <div className="course-detail__preview-fade" />
-                  <a
-                    href={`/learn/?courseId=${encodeURIComponent(catalogEntry.id)}`}
-                    className="btn btn--primary"
-                  >
-                    Read the full lesson <ArrowRight size={14} />
-                  </a>
+                  <Link to="/download" className="btn btn--warm">
+                    <DownloadIcon size={14} /> Download to read the full course
+                  </Link>
                 </div>
               )}
             </div>
@@ -364,35 +359,27 @@ export function CourseDetail() {
           {/* ─── Sidebar: meta + CTA ────────────────────── */}
           <aside className="course-detail__sidebar">
             <div className="course-detail__sidebar-card">
-              <h3 className="course-detail__sidebar-title">Open this course</h3>
+              <h3 className="course-detail__sidebar-title">Get this course</h3>
               <p className="course-detail__sidebar-body">
-                Sample it in your browser, or install the desktop app for
-                ingestion + native runtimes.
+                Install the free desktop app to take this course with native
+                runtimes, the local AI tutor and full offline access.
               </p>
-              <a
-                href={`/learn/?courseId=${encodeURIComponent(catalogEntry.id)}`}
-                className="btn btn--primary btn--lg course-detail__sidebar-btn"
+              <Link
+                to="/download"
+                className="btn btn--warm btn--lg course-detail__sidebar-btn"
               >
-                <PlayCircle size={14} /> Start in browser
-              </a>
+                <DownloadIcon size={14} /> Download the app
+              </Link>
+              {/* Deep-link for visitors who already have the desktop
+                  app installed — opens this exact course in Libre. */}
               <button
                 type="button"
                 className="btn btn--ghost btn--lg course-detail__sidebar-btn"
                 onClick={() => void openInLibre(catalogEntry.id)}
+                title="Already installed? Open this course in the desktop app"
               >
                 <ExternalLink size={14} /> Open in Libre
               </button>
-              {/* Soft "no app yet?" affordance — only shows when we
-                  haven't seen the desktop app respond on this device.
-                  Stays out of the way for users who already have it. */}
-              {hasApp !== true && (
-                <Link
-                  to="/download"
-                  className="course-detail__sidebar-hint"
-                >
-                  <DownloadIcon size={11} /> Don't have it? Download Libre
-                </Link>
-              )}
             </div>
 
             <div className="course-detail__sidebar-card">
@@ -451,22 +438,6 @@ export function CourseDetail() {
               </ul>
             </div>
 
-            <div className="course-detail__sidebar-card">
-              <h3 className="course-detail__sidebar-title">Keep exploring</h3>
-              <p className="course-detail__sidebar-body">
-                Want more context before or after the lessons? Read why
-                passive video falls short, or learn how Libre turns books
-                into interactive courses.
-              </p>
-              <div className="course-detail__sidebar-links">
-                <Link to="/blog/why-passive-video-doesnt-work" className="course-detail__sidebar-hint">
-                  Why passive video doesn't work
-                </Link>
-                <Link to="/blog/bring-your-own-book" className="course-detail__sidebar-hint">
-                  Bring Your Own Book
-                </Link>
-              </div>
-            </div>
           </aside>
         </div>
       </section>
@@ -509,23 +480,12 @@ function ChapterOutline({
                   >
                     {labelForKind(l.kind)}
                   </span>
-                  {/* Per-lesson "Open" actions, hover-revealed so they
-                      don't compete with the lesson title's hierarchy.
-                      Two flavours, mirroring the page-level CTAs:
-                        - browser: /learn/?courseId=…&lessonId=…  (always
-                          works, opens the embedded web app)
-                        - libre://: deep-link into the desktop app,
-                          falls through with no harm if the scheme isn't
-                          registered (browser shows its handler dialog,
-                          user dismisses, page is unchanged) */}
-                  <a
-                    className="course-detail__lesson-action course-detail__lesson-action--browser"
-                    href={`/learn/?courseId=${encodeURIComponent(courseId)}&lessonId=${encodeURIComponent(l.id)}`}
-                    title="Open this lesson in the browser"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <PlayCircle size={11} />
-                  </a>
+                  {/* Per-lesson deep-link into the desktop app, hover-
+                      revealed so it doesn't compete with the lesson
+                      title's hierarchy. Uses the libre:// scheme and
+                      falls through with no harm if the app isn't
+                      installed (the browser shows its handler dialog,
+                      the user dismisses it, the page is unchanged). */}
                   <a
                     className="course-detail__lesson-action course-detail__lesson-action--app"
                     href={libreOpenUrl(courseId, l.id)}

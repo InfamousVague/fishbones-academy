@@ -7,27 +7,11 @@
    field stays as low-key ambient depth. */
 .home-hero {
   position: relative;
-  padding: 64px var(--site-section-pad-x) 64px;
+  padding: 36px var(--site-section-pad-x) 48px;
   /* Hide horizontal overflow from particle parallax / artwork
      transforms so they don't spawn a horizontal scrollbar. */
   overflow: hidden;
   isolation: isolate;
-}
-
-/* Particle field overlay — sits behind the artwork + copy as
-   ambient depth. Pointer events stay on the canvas for the mouse
-   parallax to work, but the canvas is decorative — clicks pass
-   through to nothing important. */
-.home-hero__particles {
-  position: absolute !important;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Allow the particle canvas's children to receive mousemove */
-.home-hero__particles canvas {
-  pointer-events: auto !important;
 }
 
 .home-hero__inner {
@@ -49,7 +33,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 36px;
+  gap: 18px;
 }
 
 /* Copy block. The flex parent's `align-items: center` was
@@ -171,6 +155,30 @@
   gap: 10px;
   margin-bottom: 16px;
   justify-content: center;
+  align-items: center;
+}
+
+/* Amber-skin the OS-detecting download button in the hero so the
+   marquee action matches the brand accent (the component defaults to
+   a monochrome white pill). Scoped to the hero so the /download page
+   keeps the neutral split button. */
+.home-hero__download {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-warm) 0%,
+    var(--color-accent-warm-hover) 100%
+  );
+  color: #1a1206;
+  border: 1px solid color-mix(in srgb, var(--color-accent-warm-deep) 60%, transparent);
+  box-shadow: 0 8px 24px rgba(242, 169, 59, 0.24);
+}
+.home-hero__download .download-button__caret {
+  border-left-color: rgba(26, 18, 6, 0.22);
+}
+.home-hero__download .download-button__primary:hover,
+.home-hero__download .download-button__caret:hover,
+.home-hero__download .download-button__caret--open {
+  background: rgba(26, 18, 6, 0.12);
 }
 
 .home-hero__hint {
@@ -190,7 +198,7 @@
   max-width: var(--site-max-width);
   /* Side margin matches the inner's side padding so the strip
      aligns with the constrained text column above it. */
-  margin: 64px var(--site-section-pad-x) 0;
+  margin: 32px var(--site-section-pad-x) 0;
   margin-left: auto;
   margin-right: auto;
   padding: 22px 32px;

@@ -17,8 +17,8 @@
 // in lockstep manually — the page is small enough that a shared
 // dependency would be more friction than it's worth.
 
-import { useEffect, useId, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useId, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import "./ResetPassword.css";
 
 // The live relay. Was `https://api.mattssoftware.com` with a
@@ -225,22 +225,6 @@ export function ResetPassword() {
     confirm.length > 0 &&
     password === confirm;
 
-  // Auto-redirect after a successful confirm. 4 seconds gives the
-  // user time to read the success message before the page changes
-  // out from under them.
-  //
-  // Use `window.location.assign` rather than the router's `navigate`
-  // because `/learn` isn't a SPA route — Caddy rewrites it to the
-  // embedded learn-app's index.html. A client-side router push would
-  // hit the SPA's catch-all NotFound and never trigger the rewrite.
-  useEffect(() => {
-    if (phase !== "success") return;
-    const t = window.setTimeout(() => {
-      window.location.assign("/learn");
-    }, 4000);
-    return () => window.clearTimeout(t);
-  }, [phase]);
-
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
@@ -285,30 +269,23 @@ export function ResetPassword() {
             <p className="reset-card__blurb reset-card__blurb--error">
               {errorMsg ?? "Something went wrong. Please try again."}
             </p>
-            {/* Two CTAs depending on what kind of error we're in:
-                - Missing token (stranded link)        → back to /learn
-                - Invalid / expired / consumed token   → request a new
-                  reset (the SignInDialog's forgot-password mode lives
-                  on /learn). Both end up at /learn anyway, but the
-                  copy makes the next step clear. */}
-            {/* Full-page nav rather than client-side <Link> — the
-                `/learn` path is served by Caddy's rewrite to the
-                embedded app's index.html, NOT by the marketing SPA's
-                router. A <Link> click would hit the SPA's catch-all
-                NotFound before the rewrite gets a chance. */}
-            <a href="/learn" className="reset-card__cta">
-              {token ? "Request a new reset link" : "Back to Libre"}
-            </a>
+            {/* Reset requests are made from the desktop app's sign-in
+                dialog now, so on an expired/invalid link we just send
+                the user home rather than to a web sign-in page. */}
+            <Link to="/" className="reset-card__cta">
+              Back to Libre
+            </Link>
           </>
         ) : phase === "success" ? (
           <>
             <p className="reset-card__blurb reset-card__blurb--success">
-              Password updated. Redirecting to the sign-in page in a few
-              seconds — or click below to go now.
+              Password updated. Open the Libre desktop app and sign in with
+              your new password — or download it below if you don't have it
+              yet.
             </p>
-            <a href="/learn" className="reset-card__cta">
-              Sign in with new password
-            </a>
+            <Link to="/download" className="reset-card__cta">
+              Download the app
+            </Link>
           </>
         ) : (
           <form className="reset-form" onSubmit={onSubmit}>

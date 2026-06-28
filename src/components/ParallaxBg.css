@@ -1,0 +1,49 @@
+/* Parallax section atmosphere. See ParallaxBg.tsx.
+   The host carries position+isolation so the bg (and any ScrollAsset)
+   can sit at z-index -1 behind the text without per-child juggling. */
+
+.parallax-host {
+  position: relative;
+  isolation: isolate;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Full-bleed: break out of any max-width section to the viewport
+     (body has overflow-x: hidden to absorb it). */
+  left: calc(50% - 50vw);
+  width: 100vw;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.parallax-bg__layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* Taller than the host so the parallax translate never exposes an
+     edge; the fade mask hides any sliver regardless. */
+  top: -28%;
+  bottom: -28%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  will-change: transform;
+}
+
+/* Edge fades so each themed scene melts into the solid-black sections
+   above and below it. */
+.parallax-bg--fade-both {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 16%, #000 84%, transparent 100%);
+}
+.parallax-bg--fade-top {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 100%);
+}
+.parallax-bg--fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+}

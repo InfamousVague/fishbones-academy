@@ -24,7 +24,7 @@
 ///     block carry the first.
 
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, PlayCircle, Code2, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, Code2, Sparkles } from "lucide-react";
 import { languageBySlug } from "../data/languages";
 import { CATALOG } from "../data/courses";
 import { useSeo } from "../lib/useSeo";
@@ -98,7 +98,7 @@ export function LanguageDetail() {
   const courses = langCourses;
   const runLabel =
     lang.run === "browser"
-      ? "Runs in your browser"
+      ? "Runs instantly in-app"
       : lang.run === "sandbox"
         ? "Compiles via a hosted playground"
         : "Runs locally on your machine";
@@ -138,15 +138,9 @@ export function LanguageDetail() {
               : "Open source, no signup, no paywall."}
           </p>
           <div className="lang-detail__actions">
-            {lang.inBrowser ? (
-              <a href="/learn/" className="btn btn--primary btn--lg">
-                <PlayCircle size={16} /> Try {lang.name} in your browser
-              </a>
-            ) : (
-              <Link to="/download" className="btn btn--primary btn--lg">
-                Get the desktop app
-              </Link>
-            )}
+            <Link to="/download" className="btn btn--warm btn--lg">
+              <Download size={16} /> Download to learn {lang.name}
+            </Link>
             <Link to="/courses" className="btn btn--ghost btn--lg">
               Browse all courses
             </Link>

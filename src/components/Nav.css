@@ -35,28 +35,37 @@
 
 .nav__brand {
   display: inline-flex;
-  /* Bottom-align the icon + wordmark so the ".academy" descender
-     line sits at the icon's bottom edge rather than floating
-     mid-icon. The "Libre" baseline rides the same horizontal as
-     ".academy"; flex-end makes the icon and the entire brand-mark
-     text-line share that bottom. */
-  align-items: flex-end;
-  gap: 10px;
+  align-items: center;
   color: var(--color-text-primary);
-  font-weight: 700;
   text-decoration: none;
-  letter-spacing: -0.01em;
+  /* Scroll-reveal: on the homepage the bar starts with NO logo (the
+     oversized hero logo owns that real estate). Once you scroll past
+     the hero, the same rotation artwork fades + slides into the bar.
+     On other routes `data-visible` is true from the first paint. */
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.nav__brand[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 
 .nav__brand-icon {
-  /* Single-glyph "Libre.academy" wordmark — height pinned at 44px
-     (bumped 15% from the previous 38px so the ".academy" suffix
-     inside the asset reads with more presence in the header).
-     Width auto-flows the natural ~2.85:1 ratio of the source PNG. */
-  height: 44px;
+  /* The rotating Libre.academy wordmark, shrunk into the bar. The
+     variants have different aspect ratios, so cap the height and let
+     width flow; max-width keeps the widest variant from crowding the
+     links. A soft amber glow ties it to the brand accent. */
+  height: 34px;
   width: auto;
+  max-width: 190px;
+  object-fit: contain;
   display: block;
   flex-shrink: 0;
+  filter: drop-shadow(0 2px 10px rgba(242, 169, 59, 0.18));
 }
 
 .nav__brand-mark {
@@ -128,30 +137,45 @@
   background: var(--color-accent-warm);
 }
 
-.nav__link--icon { padding: 8px 10px; }
+.nav__link--icon {
+  padding: 8px;
+  color: var(--color-text-tertiary);
+}
+.nav__link--icon:hover {
+  color: var(--color-accent-warm);
+  background: var(--color-accent-warm-subtle);
+}
 
 .nav__cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-left: 6px;
-  padding: 8px 14px;
-  background: var(--color-text-primary);
-  color: var(--color-bg-primary);
-  border-radius: 8px;
+  margin-left: 8px;
+  padding: 9px 16px;
+  /* Amber download CTA — the brand-warm gradient so the primary
+     action carries the paperback identity rather than reading as a
+     plain white pill. Dark text keeps contrast on the amber. */
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-warm) 0%,
+    var(--color-accent-warm-hover) 100%
+  );
+  color: #1a1206;
+  border: 1px solid color-mix(in srgb, var(--color-accent-warm-deep) 60%, transparent);
+  border-radius: 9px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.005em;
   text-decoration: none;
-  transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  box-shadow: 0 6px 18px rgba(242, 169, 59, 0.22);
+  transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .nav__cta:hover {
-  /* CTA hover: shift fill to the warm accent — bigger brand moment
-     than the link-hover above since this is a primary action. */
-  background: var(--color-accent-warm);
-  color: #1f2330;
+  filter: brightness(1.06);
+  color: #1a1206;
   transform: translateY(-1px);
+  box-shadow: 0 9px 26px rgba(242, 169, 59, 0.3);
 }
 
 .nav__menu-btn {
@@ -182,6 +206,9 @@
 }
 
 .nav__drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 12px 14px;
   border-radius: 8px;
   color: var(--color-text-secondary);
@@ -189,25 +216,34 @@
   font-weight: 500;
   text-decoration: none;
 }
+.nav__drawer-link svg { color: var(--color-accent-warm); flex-shrink: 0; }
 
 .nav__drawer-link:hover,
 .nav__drawer-link--active {
-  background: var(--color-bg-secondary);
+  background: var(--color-accent-warm-subtle);
   color: var(--color-text-primary);
 }
 
 .nav__drawer-cta {
-  margin-top: 4px;
-  padding: 12px 14px;
-  background: var(--color-text-primary);
-  color: var(--color-bg-primary);
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 13px 14px;
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-warm) 0%,
+    var(--color-accent-warm-hover) 100%
+  );
+  color: #1a1206;
+  border-radius: 9px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
 
-.nav__drawer-cta:hover { color: var(--color-bg-primary); }
+.nav__drawer-cta:hover { color: #1a1206; filter: brightness(1.05); }
 
 /* Push first page section past the fixed nav on every route. */
 .app-main {

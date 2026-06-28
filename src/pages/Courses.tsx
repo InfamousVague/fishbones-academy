@@ -120,8 +120,8 @@ export function Courses() {
             <p className="section__subtitle">
               {CATALOG.length} interactive courses to choose from — linear
               textbooks, framework deep-dives, and kata-style challenge
-              packs. Every course runs in your browser. Pick one and
-              start writing code now. No signup, no install.
+              packs. Every one runs in the free desktop app — download it and
+              start writing code. No signup, no paywall.
             </p>
           </div>
         </div>

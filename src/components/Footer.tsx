@@ -23,10 +23,10 @@ export function Footer() {
 
         <nav className="site-footer__cols" aria-label="Footer">
           <div className="site-footer__col">
-            <h4 className="site-footer__col-title">Learn</h4>
-            <Link to="/courses">Browse courses</Link>
+            <h4 className="site-footer__col-title">Explore</h4>
+            <Link to="/#features">Features</Link>
+            <Link to="/courses">Courses</Link>
             <Link to="/languages">Languages</Link>
-            <a href="/learn/">Open the app</a>
           </div>
           <div className="site-footer__col">
             <h4 className="site-footer__col-title">Product</h4>

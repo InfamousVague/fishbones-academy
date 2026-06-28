@@ -26,17 +26,11 @@ const introduction = `Libre Academy is a free, interactive coding course platfor
 write code in a real editor, watch hidden tests grade your work, and earn XP
 toward a streak that doesn't reset for taking the weekend off.
 
-The same app runs two ways:
-
-- **In your browser**, at [libre.academy/learn](/learn/). Sixteen+
-  starter courses, no install, runs against a local IndexedDB.
-- **As a desktop app**, distributed for macOS, Linux, and Windows. The
-  desktop build adds PDF / EPUB ingestion, native toolchain runners
-  for compiled languages, and an optional local Ollama tutor.
-
-Both share the same lesson format and the same UI vocabulary. The
-desktop app is just the browser experience plus the parts that need
-filesystem access.
+Libre Academy is a free desktop app, distributed for macOS, Linux, and
+Windows. It bundles a real code editor, native runtimes for every
+language, PDF / EPUB ingestion that turns books into courses, and an
+optional local Ollama tutor — and it all runs on your own machine,
+online or off.
 
 ## Who this is for
 
@@ -53,37 +47,6 @@ These pages are a quick orientation. The desktop app ships with its
 own deeper docs (look for the **Docs** tab in the sidebar) covering
 Tauri internals, the ingest pipeline, and the runtime layer. Start
 here if you're brand new; jump there once you've installed.
-`;
-
-const browser = `The browser version of Libre Academy lives at
-[/learn/](/learn/). It's the desktop app's frontend running against
-IndexedDB for persistence — no server, no account, no telemetry.
-
-## What works in the browser
-
-Anything that can run inside a browser tab:
-
-- **JavaScript / TypeScript** — Web Workers, isolated per-lesson
-- **Python** — via Pyodide; first run downloads the runtime (~9MB)
-- **Web / React / Three.js / Svelte / SolidJS / HTMX / Astro / Bun** —
-  iframe sandboxes with HMR-like reloads
-- **Rust + Go** — proxied to play.rust-lang.org and play.golang.org
-- **React Native** — react-native-web with a phone-shaped preview
-
-## What doesn't
-
-Compiled languages that need a system toolchain — **C, C++, Java,
-Kotlin, C#, Swift, Assembly** — are desktop-only. The browser cannot
-spawn child processes, so there's nothing to run them against. The
-catalog page marks each language clearly so you don't get surprised
-opening a course you can't finish in-tab.
-
-## Saving progress
-
-Lesson completions, your XP, and the streak counter all live in
-IndexedDB on the device you're using. There's no cloud sync from the
-browser variant — install the desktop app + sign in to get progress
-mirrored across machines.
 `;
 
 const desktop = `The desktop app gives you the full Libre Academy — every language
@@ -105,7 +68,7 @@ Libre Academy unpacks the bundled starter packs into your data dir and
 opens the Library. Pick a course, start the first lesson, and the
 sidebar populates with the chapter tree.
 
-## What the desktop adds over the browser
+## What's inside
 
 - **PDF / EPUB ingest** — drop any technical book in, get a
   Claude-structured course out
@@ -255,12 +218,6 @@ export const DOCS: DocSection[] = [
         title: "Introduction",
         tagline: "What Libre Academy is, and who it's for.",
         body: introduction,
-      },
-      {
-        id: "browser",
-        title: "Run it in your browser",
-        tagline: "Sixteen+ starter courses, no install.",
-        body: browser,
       },
       {
         id: "desktop",

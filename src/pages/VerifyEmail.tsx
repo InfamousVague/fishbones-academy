@@ -10,7 +10,7 @@
 // ResetPassword — both are small single-purpose email-link landings.
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "./ResetPassword.css";
 
 // The live relay. Same host the desktop app and the rest of the auth
@@ -73,15 +73,6 @@ export function VerifyEmail() {
     })();
   }, [token]);
 
-  // Auto-redirect to /learn after a successful confirm. Full-page nav
-  // (not the router) because /learn is Caddy-rewritten to the embedded
-  // app, not a SPA route — a client-side push would hit NotFound.
-  useEffect(() => {
-    if (phase !== "success") return;
-    const t = window.setTimeout(() => window.location.assign("/learn"), 4000);
-    return () => window.clearTimeout(t);
-  }, [phase]);
-
   return (
     <div className="reset-page">
       <div className="reset-card">
@@ -92,21 +83,22 @@ export function VerifyEmail() {
         ) : phase === "success" ? (
           <>
             <p className="reset-card__blurb reset-card__blurb--success">
-              Your email is confirmed and your account is active. Redirecting
-              to the sign-in page in a few seconds — or click below to go now.
+              Your email is confirmed and your account is active. Open the Libre
+              desktop app and sign in to sync your progress — or download it
+              below if you don't have it yet.
             </p>
-            <a href="/learn" className="reset-card__cta">
-              Sign in
-            </a>
+            <Link to="/download" className="reset-card__cta">
+              Download the app
+            </Link>
           </>
         ) : (
           <>
             <p className="reset-card__blurb reset-card__blurb--error">
               {errorMsg ?? "Something went wrong. Please try again."}
             </p>
-            <a href="/learn" className="reset-card__cta">
+            <Link to="/" className="reset-card__cta">
               Back to Libre
-            </a>
+            </Link>
           </>
         )}
       </div>

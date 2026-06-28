@@ -57,19 +57,6 @@ export function BookCarousel() {
 
   return (
     <section className="book-carousel">
-      <div className="book-carousel__inner">
-        <div className="book-carousel__copy">
-          <span className="book-carousel__eyebrow">The shelf</span>
-          <h2 className="book-carousel__title">
-            Forty-plus titles, all open-source, all runnable.
-          </h2>
-          <p className="book-carousel__lede">
-            From the long-form Rust + Go books to the kata-style challenge
-            packs in twenty-six languages. Every cover is a hand-rendered
-            specimen plate. Click any one to start reading + coding.
-          </p>
-        </div>
-      </div>
 
       {/* Marquee rows live OUTSIDE the inner column so they bleed
           edge-to-edge across the viewport. */}

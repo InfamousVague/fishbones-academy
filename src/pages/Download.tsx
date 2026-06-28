@@ -8,9 +8,7 @@ import {
   Boxes,
   Cloud,
   Download as DownloadIcon,
-  Globe,
   Laptop,
-  PlayCircle,
   ShieldOff,
 } from "lucide-react";
 import { GithubMark } from "../components/icons/GithubMark";
@@ -97,48 +95,18 @@ export function Download() {
         <div className="download-hero__inner">
           <span className="section__eyebrow">Get Libre Academy</span>
           <h1 className="section__title">
-            Free coding courses, on the web or on your desktop.
+            Free coding courses on your desktop.
           </h1>
           <p className="download-hero__lede">
-            Two ways to run Libre Academy — both free, both MIT licensed,
-            both interactive. The browser version is the fastest way to
-            sample any course. The desktop app adds ingest, native runtimes
-            for {LANGUAGES.length} languages, and a local AI tutor.
+            Libre Academy is a free, MIT-licensed desktop app — a real editor,
+            hidden-test grading, native runtimes for {LANGUAGES.length} languages,
+            ingest your own books, and a local AI tutor. Install it once and
+            everything runs on your machine, online or off.
           </p>
         </div>
       </header>
 
       <section className="section download-tiers">
-        <Tier
-          icon={Globe}
-          eyebrow="Sample"
-          title="In your browser"
-          price="Free"
-          summary="Seventeen starter courses, runs in IndexedDB, no install."
-          features={[
-            "Sixteen+ browser-runnable languages",
-            "Full Monaco editor + hidden tests",
-            "Streak + XP tracking (this device only)",
-            "Per-tab progress, no cloud sync",
-            "No accounts. No telemetry.",
-          ]}
-          cta={{
-            href: "/learn/",
-            label: "Open browser app",
-            primary: true,
-            icon: PlayCircle,
-            // `/learn/` is Caddy-rewritten to the embedded app's
-            // index.html — NOT a marketing-SPA route. Force a
-            // same-tab full navigation so the request actually
-            // reaches Caddy instead of the client router 404ing.
-            fullNav: true,
-          }}
-          ctaSecondary={{
-            href: "/courses",
-            label: "Browse courses",
-          }}
-        />
-
         <Tier
           icon={Laptop}
           eyebrow="Daily driver"

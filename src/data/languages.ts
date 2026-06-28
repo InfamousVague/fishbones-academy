@@ -54,7 +54,7 @@ export const LANGUAGES: Language[] = [
     slug: "python",
     name: "Python",
     glyph: "PY",
-    blurb: "Scripts, scrapers, scientific code. Runs in your browser via Pyodide.",
+    blurb: "Scripts, scrapers, scientific code. Runs instantly via Pyodide.",
     run: "browser",
     runNote: "(Pyodide)",
     inBrowser: true,
