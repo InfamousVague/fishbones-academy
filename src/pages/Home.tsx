@@ -30,6 +30,10 @@ const APP_SHOTS = [
     alt: "The Libre Academy desktop app library — Rust, Python and Go course collections with a Python course in progress.",
   },
   {
+    src: "/screenshots/app-paths.png",
+    alt: "Goal-oriented learning paths for Rust and Go, each threading courses, language tracks and drill packs into one route.",
+  },
+  {
     src: "/screenshots/app-collections.png",
     alt: "A Rust lesson on collections, with the course outline, a progress certificate and an illustrated concept card.",
   },
