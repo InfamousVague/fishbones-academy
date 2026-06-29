@@ -122,9 +122,8 @@ const ROW_THEMES: Array<
     bg: "bg-courses-hero.jpg",
     asset: { src: "asset-kaiju.png", place: "kaiju" },
   },
-  // Row 1 — "bring your own book" → solid black breather.
-  null,
-  // Row 2 — "free + open source" → alien invasion (lime).
+  // Row 1 — "free + open source / no paywall" → alien invasion (lime),
+  // with the flying-saucer asset.
   {
     theme: "theme-alien",
     bg: "bg-languages-hero.jpg",
