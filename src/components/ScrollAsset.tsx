@@ -85,10 +85,10 @@ export function ScrollAsset({
 
   const url = src.startsWith("/") ? src : `/backgrounds/${src}`;
   const isVideo = VIDEO_RE.test(src);
-  // The still poster / fallback shares the asset's basename (the video
-  // and its PNG are exported to the same crop, so swapping never shifts
-  // the layout).
-  const poster = isVideo ? url.replace(VIDEO_RE, ".png") : url;
+  // The MOV / WebM / PNG siblings share the asset's basename (all exported
+  // to the same crop, so swapping never shifts the layout).
+  const base = url.replace(VIDEO_RE, "");
+  const poster = isVideo ? `${base}.png` : url;
 
   // Only decode the alpha video while it's near the viewport: load +
   // play on approach, pause on exit. preload="none" keeps the file off
@@ -141,7 +141,12 @@ export function ScrollAsset({
           draggable={false}
           style={motionStyle}
         >
-          <source src={url} type="video/webm" />
+          {/* Safari ignores VP9's alpha plane and would render the keyed-
+              out (magenta) background, so give WebKit an HEVC-with-alpha
+              MOV first; it's listed ahead of the WebM and Chrome/Firefox
+              skip the quicktime container and fall through to the WebM. */}
+          <source src={`${base}.mov`} type="video/quicktime" />
+          <source src={`${base}.webm`} type="video/webm" />
         </motion.video>
       ) : (
         <motion.img

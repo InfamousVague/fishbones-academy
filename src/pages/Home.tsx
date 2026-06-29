@@ -85,7 +85,7 @@ const FEATURES = [
 const FEATURE_ROWS = [
   {
     eyebrow: "Every language, one app",
-    title: "Twenty-six programming languages. One download.",
+    title: "Twenty-six programming languages. Only one Kaiju.",
     body:
       "JavaScript, TypeScript and Python run in-browser via Web Workers and Pyodide. Solidity compiles with solc-js and executes on an in-process EVM. Rust and Go proxy to the official playgrounds. C, C++, Java, Kotlin, C#, Swift, Zig and Assembly run on your local toolchain through the optional desktop app — and if a compiler is missing, Libre Academy offers a one-click install.",
     bullets: [
@@ -198,7 +198,7 @@ export function Home() {
       >
         <ParallaxBg src="bg-showcase.jpg" fade="both" />
         <ScrollAsset
-          src="asset-robot.png"
+          src="asset-robot.webm"
           place="robot"
           y={[60, -60]}
           rotateZ={[-3, 3]}
