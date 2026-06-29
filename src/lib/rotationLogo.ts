@@ -1,46 +1,43 @@
 /// Source-of-truth for the Libre.academy brand logos.
 ///
-/// Two surfaces render a brand logo, each with its own dedicated image:
-///   1. <LogoHero> — the oversized GROOVY_LOGO filling the homepage
-///      hero (the first thing you see).
+/// Two surfaces render a brand logo:
+///   1. <LogoHero> — the oversized hero logo filling the homepage hero
+///      (the first thing you see). It picks ONE logo at random from the
+///      ROTATION_LOGOS pool per page load (see pickRotationLogo) so the
+///      brand mark cycles through every themed variant — groovy, slime,
+///      alien, atomic, noir, pulp, rocket, robot, time-warp.
 ///   2. <Nav> — the compact NAV_LOGO wordmark that fades INTO the top
-///      menu bar once you scroll past the hero (and shows immediately
-///      on every non-home route, where there is no hero to scroll past).
-///
-/// The ROTATION_LOGOS pool + pickRotationLogo() below are retained for
-/// reference but no longer drive either surface — both now use a fixed
-/// dedicated logo rather than rotating.
+///      menu bar once you scroll past the hero (and shows immediately on
+///      every non-home route). It stays a fixed wide wordmark because a
+///      horizontal logotype reads far better at bar height than the
+///      square/varied rotation marks.
 
 export interface RotationLogo {
   src: string;
-  /// Exact post-`magick -trim` pixel dimensions, passed straight to
-  /// the <img> width/height attrs so the browser reserves the right
+  /// Exact post-`magick -trim` pixel dimensions, passed straight to the
+  /// <img> width/height attrs so the browser reserves the right
   /// aspect-ratio slot (zero layout shift) at any rendered size.
   w: number;
   h: number;
 }
 
+/// Themed hero logo variants. The hero shows one at random per load.
 export const ROTATION_LOGOS: RotationLogo[] = [
-  { src: "logo-01.png", w: 640, h: 525 },
-  { src: "logo-02.png", w: 1024, h: 518 },
-  { src: "logo-03.png", w: 1024, h: 531 },
-  { src: "logo-04.png", w: 1024, h: 365 },
+  { src: "logo-groovy.png", w: 1024, h: 840 },
+  { src: "logo-slime.png", w: 1400, h: 708 },
+  { src: "logo-alien.png", w: 1184, h: 477 },
+  { src: "logo-atomic.png", w: 1070, h: 761 },
+  { src: "logo-noir.png", w: 1400, h: 568 },
+  { src: "logo-pulp.png", w: 1094, h: 1126 },
+  { src: "logo-rocket.png", w: 1226, h: 991 },
+  { src: "logo-robot.png", w: 1400, h: 308 },
+  { src: "logo-timewarp.png", w: 1290, h: 1012 },
 ];
 
-/// The dedicated "groovy" psychedelic logo (derived from the full-res
-/// master). The hero ALWAYS uses this one image — it reads best filling
-/// the hero — instead of rotating through the ROTATION_LOGOS pool.
-export const GROOVY_LOGO: RotationLogo = {
-  src: "header-logo.png",
-  w: 1100,
-  h: 902,
-};
-
 /// The compact "LIBRE.ACADEMY" wordmark that lives in the top nav bar.
-/// A wide horizontal logotype reads better at bar height than the
-/// square groovy mark, so the nav is decoupled from the hero logo and
-/// uses its own dedicated image. Dimensions are the exact post-trim
-/// pixel size of nav-logo.png (zero layout shift).
+/// A wide horizontal logotype reads better at bar height than the varied
+/// rotation marks, so the nav uses its own dedicated image. Dimensions
+/// are the exact post-trim pixel size of nav-logo.png (zero layout shift).
 export const NAV_LOGO: RotationLogo = {
   src: "nav-logo.png",
   w: 640,
@@ -49,9 +46,10 @@ export const NAV_LOGO: RotationLogo = {
 
 let picked: RotationLogo | null = null;
 
-/// Returns the logo chosen for this page load, picking once and then
-/// returning the same entry on every subsequent call (so hero + nav
-/// stay in sync). Reset on hard reload via module re-evaluation.
+/// Returns the hero logo chosen for this page load, picking once at
+/// random and then returning the same entry on every subsequent call
+/// (stable across re-renders / route changes). A hard reload re-evaluates
+/// this module and yields a fresh pick.
 export function pickRotationLogo(): RotationLogo {
   if (!picked) {
     picked = ROTATION_LOGOS[Math.floor(Math.random() * ROTATION_LOGOS.length)];

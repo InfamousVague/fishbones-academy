@@ -19,13 +19,14 @@
 ///     logo since `magick -trim` strips whitespace differently
 ///     for each wordmark.
 
-import { GROOVY_LOGO } from "../lib/rotationLogo";
+import { pickRotationLogo } from "../lib/rotationLogo";
 import "./LogoHero.css";
 
 export function LogoHero() {
-  /// Always the groovy psychedelic logo — the same one the header
-  /// uses — rather than rotating through the variant pool.
-  const chosen = GROOVY_LOGO;
+  /// One themed brand logo picked at random per page load, cycling
+  /// through every variant (groovy, slime, alien, atomic, noir, pulp,
+  /// rocket, robot, time-warp). Stable across re-renders within a load.
+  const chosen = pickRotationLogo();
 
   return (
     <div className="logo-hero" aria-hidden>
