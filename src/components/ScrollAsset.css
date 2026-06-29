@@ -66,20 +66,43 @@
   width: clamp(280px, 31vw, 540px);
 }
 
-/* On small screens the moving assets shrink + dim a touch so they
-   stay atmospheric without crowding the headline. */
+/* On small screens the assets scale to the viewport so they stay big
+   and prominent (not tiny corner stickers), dimmed slightly so the
+   stacked copy still reads over them. */
 @media (max-width: 720px) {
-  .scroll-asset--rocket,
-  .scroll-asset--robot,
-  .scroll-asset--kaiju,
-  .scroll-asset--saucer,
+  .scroll-asset {
+    opacity: 0.6;
+  }
+  .scroll-asset--rocket {
+    width: 64vw;
+    top: 2%;
+    left: -6%;
+  }
+  .scroll-asset--robot {
+    width: 82vw;
+    bottom: 5%;
+    left: -10%;
+  }
+  .scroll-asset--kaiju {
+    width: 98vw;
+    bottom: 0%;
+    left: -8%;
+    right: auto;
+  }
+  .scroll-asset--saucer {
+    width: 90vw;
+    top: 2%;
+    right: -10%;
+    left: auto;
+  }
   .scroll-asset--creature {
-    width: 190px;
-    opacity: 0.55;
+    width: 88vw;
+    top: 2%;
+    right: -8%;
   }
   .scroll-asset--portal {
-    width: 70vw;
-    margin-top: -35vw;
-    margin-left: -35vw;
+    width: 82vw;
+    margin-top: -41vw;
+    margin-left: -41vw;
   }
 }

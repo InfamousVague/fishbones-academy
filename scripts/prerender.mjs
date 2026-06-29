@@ -208,7 +208,7 @@ const NAV_LINKS = [
 ];
 function header() {
   const links = NAV_LINKS.map(([h, t]) => `<a href="${h}">${t}</a>`).join("");
-  return `<nav><a href="/"><strong>Libre Academy</strong></a> ${links}<a href="/learn/">Open the app →</a></nav>`;
+  return `<nav><a href="/"><strong>Libre Academy</strong></a> ${links}<a href="/download">Download →</a></nav>`;
 }
 function footer() {
   return `<hr><footer><p>Libre Academy — free, open-source interactive coding courses. ${COURSE_COUNT_ROUNDED} courses across ${LANGUAGE_COUNT} languages, no paywall.</p>
@@ -326,7 +326,7 @@ const courseLI = (c) =>
   )} · ${lessonCountOf(c)} lessons</li>`;
 const runLabel = (l) =>
   l.run === "browser"
-    ? "runs in your browser"
+    ? "runs instantly in the app"
     : l.run === "sandbox"
       ? "runs via a hosted playground"
       : "desktop app (native toolchain)";
@@ -338,11 +338,11 @@ const FAQ = [
   ],
   [
     "Do I need to sign up or install anything?",
-    "No. You can start any course in your browser at libre.academy/learn with no account and no install. An optional free desktop app for macOS, Windows, and Linux adds offline use, native compilers, and the ability to turn your own books into courses.",
+    "No account, ever. Download the free desktop app for macOS, Windows, or Linux and start any course — no sign-up required. The app adds offline use, native compilers, and the ability to turn your own books into courses.",
   ],
   [
     "What programming languages can I learn?",
-    `${LANGUAGE_COUNT}, including JavaScript, TypeScript, Python, Rust, Go, C, C++, Java, Kotlin, C#, Swift, Solidity and more. JavaScript, TypeScript, Python, Rust, Go and the web frameworks run in your browser; compiled languages like C, C++, Java and Swift run in the desktop app.`,
+    `${LANGUAGE_COUNT}, including JavaScript, TypeScript, Python, Rust, Go, C, C++, Java, Kotlin, C#, Swift, Solidity and more. JavaScript, TypeScript, Python, Rust, Go and the web frameworks run instantly in the app; compiled languages like C, C++, Java and Swift run with native toolchains.`,
   ],
   [
     "How is it different from freeCodeCamp or Codecademy?",
@@ -382,8 +382,8 @@ const FAQ = [
   ).join(" · ");
   const main = `<main>
 <h1>Learn to code for free — ${COURSE_COUNT_ROUNDED} interactive courses across ${LANGUAGE_COUNT} languages</h1>
-<p class="lede">Libre Academy is a free, open-source platform where you learn programming by writing real code in a built-in editor and getting instant feedback from hidden tests — ${COURSE_COUNT_ROUNDED} courses across ${LANGUAGE_COUNT} languages, with no paywall and no sign-up. It runs in your browser and as a desktop app, and it's a free, open-source alternative to Codecademy, freeCodeCamp, and Scrimba.</p>
-<p><a href="/learn/">Start learning free →</a> &nbsp; <a href="/courses">Browse all ${COURSE_COUNT} courses</a> &nbsp; <a href="/download">Download the app</a></p>
+<p class="lede">Libre Academy is a free, open-source desktop app for macOS, Windows and Linux where you learn programming by writing real code in a built-in editor and getting instant feedback from hidden tests — ${COURSE_COUNT_ROUNDED} courses across ${LANGUAGE_COUNT} languages, with no paywall and no sign-up. It's a free, open-source alternative to Codecademy, freeCodeCamp, and Scrimba.</p>
+<p><a href="/download">Download the app →</a> &nbsp; <a href="/courses">Browse all ${COURSE_COUNT} courses</a></p>
 <ul class="stats"><li>${COURSE_COUNT_ROUNDED} courses</li><li>${LANGUAGE_COUNT} languages</li><li>$0 — free forever</li><li>Open source (MIT)</li></ul>
 <h2>Why Libre Academy</h2>
 <ul>
@@ -391,7 +391,7 @@ const FAQ = [
 <li><strong>Free and open source.</strong> No paywall, no Pro tier, no sign-up to start. The site, the desktop app and the sync server are all MIT-licensed.</li>
 <li><strong>Bring your own book.</strong> The desktop app turns any technical PDF or EPUB into an interactive course with generated exercises.</li>
 <li><strong>Local-first, no telemetry.</strong> Courses and progress live on your device; optional free cloud sync mirrors progress across machines.</li>
-<li><strong>Browser or desktop.</strong> Learn in-tab with nothing to install, or install the app for native compilers and offline use.</li>
+<li><strong>Free desktop app.</strong> Download it for macOS, Windows and Linux — native compilers, offline use, and no account required.</li>
 </ul>
 <h2>How Libre Academy compares</h2>
 <table>
@@ -399,7 +399,7 @@ const FAQ = [
 <tr><td>Price</td><td>Free</td><td>Free tier + paid Pro</td><td>Free</td></tr>
 <tr><td>Open source</td><td>Yes (MIT)</td><td>No</td><td>Yes</td></tr>
 <tr><td>Languages</td><td>${LANGUAGE_COUNT}</td><td>~14</td><td>~10</td></tr>
-<tr><td>Run code in the browser</td><td>Yes</td><td>Yes</td><td>Yes (some)</td></tr>
+<tr><td>Run code instantly in the app</td><td>Yes</td><td>Yes</td><td>Yes (some)</td></tr>
 <tr><td>Turn your own book into a course</td><td>Yes</td><td>No</td><td>No</td></tr>
 <tr><td>Sign-up required to start</td><td>No</td><td>Yes</td><td>Yes</td></tr>
 <tr><td>Desktop app</td><td>Yes</td><td>No</td><td>No</td></tr>
@@ -412,7 +412,7 @@ const FAQ = [
 <h2>Frequently asked questions</h2>
 <dl>${FAQ.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join("")}</dl>
 <h2>Start learning</h2>
-<p><a href="/learn/">Open the free in-browser app →</a> &nbsp; <a href="/download">Download for macOS, Windows &amp; Linux</a> &nbsp; <a href="https://github.com/InfamousVague/Libre.academy">Star on GitHub</a></p>
+<p><a href="/download">Download for macOS, Windows &amp; Linux →</a> &nbsp; <a href="https://github.com/InfamousVague/Libre.academy">Star on GitHub</a></p>
 </main>`;
   emit({
     path: "/",
@@ -456,7 +456,7 @@ const FAQ = [
   const main = `<main>
 <h1>Free coding courses — browse all ${CATALOG.length}</h1>
 <p class="lede">Every Libre Academy course is free and interactive: read, write code in a real editor, and let hidden tests grade you. ${CATALOG.length} courses across ${LANGUAGES.length} languages, from beginner tracks to full books and challenge packs — no paywall, no sign-up.</p>
-<p><a href="/learn/">Start any course free →</a> &nbsp; <a href="/languages">Browse by language</a></p>
+<p><a href="/download">Download to start any course →</a> &nbsp; <a href="/languages">Browse by language</a></p>
 ${sections}
 </main>`;
   const itemList = {
@@ -529,16 +529,16 @@ for (const c of CATALOG) {
   }</ul>
 <p>Learn <strong>${esc(langName)}</strong> for free on Libre Academy with the <strong>${esc(
     c.title,
-  )}</strong> ${kind}: ${lessons} interactive lessons you complete by writing real code in a built-in editor, graded instantly by hidden tests. No paywall, no sign-up — it runs in your browser and the free desktop app.</p>
+  )}</strong> ${kind}: ${lessons} interactive lessons you complete by writing real code in a built-in editor, graded instantly by hidden tests. No paywall, no sign-up — it's part of the free, open-source desktop app for macOS, Windows and Linux.</p>
 <h2>What you get</h2>
 <ul>
 <li>Hands-on lessons with a real editor and instant, test-graded feedback.</li>
 <li>Free and open source — no account required to start.</li>
-<li>Runs in your browser, and offline in the free desktop app.</li>
+<li>Works offline in the free desktop app for macOS, Windows and Linux.</li>
 ${lang ? `<li>${esc(lang.name)} ${runLabel(lang)}.</li>` : ""}
 </ul>
 ${outline}
-<p><a href="/learn/">Start ${esc(c.title)} free →</a> &nbsp; ${
+<p><a href="/download">Download to start ${esc(c.title)} →</a> &nbsp; ${
     lang
       ? `<a href="/languages/${lang.slug}">More free ${esc(lang.name)} courses</a>`
       : `<a href="/courses">Browse all courses</a>`
@@ -592,7 +592,7 @@ ${outline}
   ).join("");
   const main = `<main>
 <h1>Programming languages you can learn for free</h1>
-<p class="lede">Libre Academy has free, interactive courses in ${LANGUAGE_COUNT} languages. JavaScript, TypeScript, Python, Rust, Go and the web frameworks run right in your browser; compiled languages run in the free desktop app.</p>
+<p class="lede">Libre Academy has free, interactive courses in ${LANGUAGE_COUNT} languages. JavaScript, TypeScript, Python, Rust, Go and the web frameworks run instantly in the app; compiled languages run with native toolchains. It's all in the free, open-source desktop app for macOS, Windows and Linux.</p>
 <ul>${li}</ul>
 <p><a href="/courses">Browse all ${COURSE_COUNT} courses →</a></p>
 </main>`;
@@ -609,7 +609,7 @@ ${outline}
     path: "/languages",
     title: `${LANGUAGE_COUNT} programming languages — free interactive courses | Libre Academy`,
     description:
-      `Free, interactive courses in ${LANGUAGE_COUNT} programming languages — JavaScript, Python, Rust, Go, C, C++, Java, Swift, Solidity and more. Write real code in your browser. No paywall.`,
+      `Free, interactive courses in ${LANGUAGE_COUNT} programming languages — JavaScript, Python, Rust, Go, C, C++, Java, Swift, Solidity and more. Write real code in a free desktop app. No paywall.`,
     main,
     priority: 0.9,
     changefreq: "weekly",
@@ -638,7 +638,7 @@ for (const l of LANGUAGES) {
   )} for free by writing real code in an in-editor workbench, graded by hidden tests — ${runLabel(
     l,
   )}. No paywall, no sign-up.</p>
-<p><a href="/learn/">Start learning ${esc(l.name)} free →</a></p>
+<p><a href="/download">Download to start learning ${esc(l.name)} →</a></p>
 ${coursesHtml}
 <h2>Helpful reading</h2>
 <p><a href="/blog/why-passive-video-doesnt-work">Why passive video doesn't make you a programmer</a> &nbsp;·&nbsp; <a href="/blog/bring-your-own-book">Bring Your Own Book: turning any PDF into a course</a></p>
@@ -669,11 +669,11 @@ emit({
     `Download the free Libre Academy desktop app for macOS, Windows and Linux: ${COURSE_COUNT_ROUNDED} interactive coding courses, native compilers, offline use, and turn your own books into courses. Free and open source.`,
   main: `<main>
 <h1>Download Libre Academy</h1>
-<p class="lede">Libre Academy is free on every platform. Learn in your browser with nothing to install, or download the desktop app for native compilers, offline use, and turning your own PDFs and EPUBs into interactive courses.</p>
-<h2>Three ways to use it — all free</h2>
+<p class="lede">Libre Academy is a free, open-source desktop app for macOS, Windows and Linux. Download it for native compilers, offline use, and turning your own PDFs and EPUBs into interactive courses — no account, no sign-up.</p>
+<h2>What you get — all free</h2>
 <ul>
-<li><strong>In your browser</strong> — open <a href="/learn/">libre.academy/learn</a>, no install and no account.</li>
-<li><strong>Desktop app</strong> — macOS, Windows and Linux. Adds native toolchain runners (C, C++, Java, Swift…), book ingestion, and a local AI tutor. <a href="https://github.com/InfamousVague/Libre.academy/releases/latest">Get the latest release</a>.</li>
+<li><strong>Desktop app</strong> — macOS, Windows and Linux. Native toolchain runners (C, C++, Java, Swift…), book ingestion, and a local AI tutor. <a href="https://github.com/InfamousVague/Libre.academy/releases/latest">Get the latest release</a>.</li>
+<li><strong>No account required</strong> — download, open the app, and start any course right away.</li>
 <li><strong>Optional cloud sync</strong> — free, opt-in, mirrors your progress across machines.</li>
 </ul>
 <p><a href="/courses">Browse the ${COURSE_COUNT} courses →</a></p>
@@ -727,7 +727,7 @@ emit({
     path: "/docs",
     title: "Docs — Libre Academy",
     description:
-      "Documentation for Libre Academy, the free interactive coding platform: getting started in the browser or desktop app, lesson kinds, the editor, themes, and the local-first design.",
+      "Documentation for Libre Academy, the free interactive coding app: getting started with the desktop app, lesson kinds, the editor, themes, and the local-first design.",
     main: `<main><h1>Libre Academy documentation</h1><p class="lede">${esc(
       intro.tagline || "How Libre Academy works and how to get started.",
     )}</p>${md.render(intro.body)}<h2>All pages</h2>${toc}</main>`,
@@ -952,28 +952,28 @@ const faqLd = (faq) => ({
     ],
     [
       "Do I need an account?",
-      "No. You can start any course in your browser at libre.academy/learn with no sign-up — unlike Codecademy, which requires an account.",
+      "No. Download the free desktop app and start any course with no sign-up — unlike Codecademy, which requires an account.",
     ],
     [
       "How is it different from Codecademy?",
-      `Same write-code-in-the-browser style, but free and open source, with ${LANGUAGE_COUNT} languages (including systems languages like Rust, C and C++ and Web3 languages), and a desktop app that can turn your own PDFs and EPUBs into interactive courses.`,
+      `Same write-code-in-a-real-editor style, but free and open source, with ${LANGUAGE_COUNT} languages (including systems languages like Rust, C and C++ and Web3 languages), and a desktop app that can turn your own PDFs and EPUBs into interactive courses.`,
     ],
   ];
   emitStandalone({
     path: "/free-alternative-to-codecademy",
     title: "Free alternative to Codecademy — Libre Academy",
     description:
-      `Libre Academy is a free, open-source alternative to Codecademy: write real code in your browser graded by hidden tests, across ${LANGUAGE_COUNT} languages, with no paywall and no sign-up.`,
+      `Libre Academy is a free, open-source alternative to Codecademy: write real code graded by hidden tests across ${LANGUAGE_COUNT} languages, in a free desktop app for macOS, Windows and Linux, with no paywall and no sign-up.`,
     main: `<main>
 <h1>A free, open-source alternative to Codecademy</h1>
-<p class="lede">Like Codecademy, Libre Academy teaches by having you write real code in an in-browser editor with instant feedback. Unlike Codecademy, it's 100% free and open source — no Pro tier, no paywalled paths, and no sign-up to start.</p>
-<p><a href="/learn/">Start learning free →</a> &nbsp; <a href="/courses">Browse ${COURSE_COUNT} courses</a></p>
+<p class="lede">Like Codecademy, Libre Academy teaches by having you write real code in a built-in editor with instant feedback. Unlike Codecademy, it's a 100% free and open-source desktop app for macOS, Windows and Linux — no Pro tier, no paywalled paths, and no sign-up to start.</p>
+<p><a href="/download">Download the app →</a> &nbsp; <a href="/courses">Browse ${COURSE_COUNT} courses</a></p>
 <h2>Libre Academy vs Codecademy</h2>
 ${compareTable("Codecademy", [
   ["Price", "Free", "Free tier + paid Pro"],
   ["Open source", "Yes (MIT)", "No"],
   ["Languages", String(LANGUAGE_COUNT), "~14"],
-  ["Run code in the browser", "Yes", "Yes"],
+  ["Run code instantly in the app", "Yes", "Yes"],
   ["Hidden tests on every lesson", "Yes", "Partial (Pro)"],
   ["Turn your own book into a course", "Yes", "No"],
   ["Sign-up to start", "Not required", "Required"],
@@ -990,7 +990,7 @@ ${compareTable("Codecademy", [
 <ul>${cmpFeatured.map(courseLI).join("")}</ul>
 <h2>FAQ</h2>
 ${faqDl(faq)}
-<p><a href="/learn/">Open the free app →</a> &nbsp; <a href="/download">Download for desktop</a></p>
+<p><a href="/download">Download the free app →</a> &nbsp; <a href="/courses">Browse the courses</a></p>
 </main>`,
     graph: [
       breadcrumb([
@@ -1026,7 +1026,7 @@ ${faqDl(faq)}
     main: `<main>
 <h1>A freeCodeCamp alternative — and when to use which</h1>
 <p class="lede">freeCodeCamp is a great, free, open-source way to learn web development and earn certifications. Libre Academy is also free and open source, but takes a different approach: every lesson is code you write and run, graded by hidden tests, across ${LANGUAGE_COUNT} languages — and the desktop app turns your own books into courses.</p>
-<p><a href="/learn/">Start learning free →</a> &nbsp; <a href="/courses">Browse ${COURSE_COUNT} courses</a></p>
+<p><a href="/download">Download the app →</a> &nbsp; <a href="/courses">Browse ${COURSE_COUNT} courses</a></p>
 <h2>Libre Academy vs freeCodeCamp</h2>
 ${compareTable("freeCodeCamp", [
   ["Price", "Free", "Free"],
@@ -1051,7 +1051,7 @@ ${compareTable("freeCodeCamp", [
 </ul>
 <h2>FAQ</h2>
 ${faqDl(faq)}
-<p><a href="/learn/">Open the free app →</a> &nbsp; <a href="/languages">Browse by language</a></p>
+<p><a href="/download">Download the free app →</a> &nbsp; <a href="/languages">Browse by language</a></p>
 </main>`,
     graph: [
       breadcrumb([
@@ -1080,7 +1080,7 @@ ${faqDl(faq)}
     ],
     [
       "Libre Academy",
-      `Free and open source: write real code graded by hidden tests across ${LANGUAGE_COUNT} languages, in your browser or a desktop app — and turn your own books into courses. No sign-up.`,
+      `Free and open source: write real code graded by hidden tests across ${LANGUAGE_COUNT} languages in a free desktop app for macOS, Windows and Linux — and turn your own books into courses. No sign-up.`,
     ],
     [
       "Exercism",
@@ -1112,8 +1112,8 @@ ${faqDl(faq)}
 <li><strong>Total beginner who wants the gentlest start?</strong> Khan Academy.</li>
 </ul>
 <h2>About Libre Academy</h2>
-<p>Libre Academy is a free, open-source platform with ${COURSE_COUNT} interactive courses across ${LANGUAGE_COUNT} languages. Every lesson is code you write in a real editor, graded instantly by hidden tests — active recall, not passive video. It runs in your browser with no install or account, and the free desktop app adds offline use, native compilers, and the ability to turn any technical PDF or EPUB into an interactive course.</p>
-<p><a href="/learn/">Try Libre Academy free →</a> &nbsp; <a href="/courses">Browse all ${COURSE_COUNT} courses</a></p>
+<p>Libre Academy is a free, open-source desktop app for macOS, Windows and Linux with ${COURSE_COUNT} interactive courses across ${LANGUAGE_COUNT} languages. Every lesson is code you write in a real editor, graded instantly by hidden tests — active recall, not passive video. Download it with no account, and it adds offline use, native compilers, and the ability to turn any technical PDF or EPUB into an interactive course.</p>
+<p><a href="/download">Download Libre Academy free →</a> &nbsp; <a href="/courses">Browse all ${COURSE_COUNT} courses</a></p>
 </main>`,
     graph: [
       breadcrumb([
