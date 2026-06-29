@@ -190,6 +190,36 @@ export function Home() {
       {/* ─── Book carousel ───────────────────────────────── */}
       <BookCarousel />
 
+      {/* ─── App screenshot — one framed product shot of the desktop
+          app's library, on a solid-black breather. Kept deliberately
+          minimal (no descriptive paragraph) so it reads as proof, not
+          a marketing gallery. ───────────────────────────────────── */}
+      <motion.section
+        className="section app-shot"
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="app-shot__head">
+          <span className="section__eyebrow">The desktop app</span>
+          <h2 className="section__title section__title--centered">
+            Your whole library, in one window.
+          </h2>
+        </div>
+        <figure className="app-shot__frame">
+          <img
+            src="/screenshots/app-library.png"
+            alt="The Libre Academy desktop app showing the course library with Rust, Python and Go collections and a Python course in progress."
+            className="app-shot__img"
+            width={1600}
+            height={1075}
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </motion.section>
+
       {/* ─── Feature cards ──────────────────────────────── */}
       <section
         className="section section--tight parallax-host theme-robots"
