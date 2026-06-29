@@ -20,7 +20,20 @@ import { MoreComparisons } from "../components/MoreComparisons";
 import { LogoHero } from "../components/LogoHero";
 import { ParallaxBg } from "../components/ParallaxBg";
 import { ScrollAsset } from "../components/ScrollAsset";
+import { ScreenshotCarousel } from "../components/ScreenshotCarousel";
 import "./Home.css";
+
+/// App screenshots for the homepage carousel.
+const APP_SHOTS = [
+  {
+    src: "/screenshots/app-library.png",
+    alt: "The Libre Academy desktop app library — Rust, Python and Go course collections with a Python course in progress.",
+  },
+  {
+    src: "/screenshots/app-collections.png",
+    alt: "A Rust lesson on collections, with the course outline, a progress certificate and an illustrated concept card.",
+  },
+];
 
 /// Homepage architecture:
 ///   1. Hero (SEO H1: "Free interactive coding courses…") with
@@ -204,20 +217,10 @@ export function Home() {
         <div className="app-shot__head">
           <span className="section__eyebrow">The desktop app</span>
           <h2 className="section__title section__title--centered">
-            Your whole library, in one window.
+            The whole app, in one window.
           </h2>
         </div>
-        <figure className="app-shot__frame">
-          <img
-            src="/screenshots/app-library.png"
-            alt="The Libre Academy desktop app showing the course library with Rust, Python and Go collections and a Python course in progress."
-            className="app-shot__img"
-            width={1600}
-            height={1075}
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
+        <ScreenshotCarousel images={APP_SHOTS} />
       </motion.section>
 
       {/* ─── Feature cards ──────────────────────────────── */}

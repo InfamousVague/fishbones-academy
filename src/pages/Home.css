@@ -630,27 +630,6 @@
   margin: 0 auto 40px;
 }
 
-.app-shot__frame {
-  position: relative;
-  margin: 0 auto;
-  max-width: 1080px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, #ffffff 12%, transparent);
-  /* Floating app-window look: deep drop shadow + a faint amber glow that
-     ties the shot to the brand accent. */
-  box-shadow:
-    0 40px 90px -30px rgba(0, 0, 0, 0.85),
-    0 0 70px -24px rgba(242, 169, 59, 0.22);
-  background: var(--color-bg-secondary, #18181b);
-}
-
-.app-shot__img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 /* ─── Responsive ─────────────────────────────────────── */
 
 @media (max-width: 1000px) {
