@@ -8,6 +8,7 @@ import {
   Boxes,
   Cloud,
   Download as DownloadIcon,
+  Globe,
   Laptop,
   ShieldOff,
 } from "lucide-react";
@@ -103,6 +104,16 @@ export function Download() {
             ingest your own books, and a local AI tutor. Install it once and
             everything runs on your machine, online or off.
           </p>
+          <div className="download-hero__web">
+            {/* Web app served at /learn (separate build → full nav). */}
+            <a href="/learn" className="btn btn--ghost btn--lg">
+              <Globe size={16} /> Open in Browser
+            </a>
+            <span className="download-hero__web-note">
+              Prefer not to install? Run it on the web — pick up the desktop app
+              anytime.
+            </span>
+          </div>
         </div>
       </header>
 

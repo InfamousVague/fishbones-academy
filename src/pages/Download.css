@@ -15,6 +15,22 @@
   margin-top: 16px;
 }
 
+/* "Open in Browser" alternative at the top of the download page. */
+.download-hero__web {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+.download-hero__web-note {
+  max-width: 300px;
+  text-align: left;
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
 /* ─── Tier cards ─────────────────────────────────────── */
 
 .download-tiers {

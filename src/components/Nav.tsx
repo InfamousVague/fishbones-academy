@@ -8,6 +8,7 @@ import {
   Newspaper,
   ShieldCheck,
   Download,
+  Globe,
 } from "lucide-react";
 import { GithubMark } from "./icons/GithubMark";
 import { DiscordMark } from "./icons/DiscordMark";
@@ -145,6 +146,10 @@ export function Nav() {
           </a>
           {/* Tip jar — port of the desktop app's TipDropdown. */}
           <TipPopover />
+          {/* Launch the web app at /learn (separate build → full nav). */}
+          <a href="/learn" className="nav__webcta">
+            <Globe size={15} aria-hidden /> Open in browser
+          </a>
           <Link to="/download" className="nav__cta">
             <Download size={17} aria-hidden /> Download
           </Link>
@@ -183,6 +188,9 @@ export function Nav() {
           <Link to="/download" className="nav__drawer-cta">
             <Download size={16} aria-hidden /> Download the app
           </Link>
+          <a href="/learn" className="nav__drawer-link nav__drawer-weblink">
+            <Globe size={17} /> <span>Open in browser</span>
+          </a>
         </div>
       )}
     </header>

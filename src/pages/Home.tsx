@@ -11,6 +11,7 @@ import {
   Flame,
   Cpu,
   Download,
+  Globe,
 } from "lucide-react";
 import { LANGUAGES } from "../data/languages";
 import { COURSE_COUNT_ROUNDED, LANGUAGE_COUNT } from "../lib/siteStats";
@@ -379,10 +380,16 @@ export function Home() {
           <Link to="/download" className="btn btn--warm btn--lg">
             <Download size={16} /> Download the desktop app
           </Link>
-          <Link to="/courses" className="btn btn--ghost btn--lg">
-            Browse all courses <ArrowRight size={14} />
-          </Link>
+          <span className="home-final__or">or</span>
+          {/* Launch the web app served at /learn — a full navigation, not a
+              router Link (the web app is a separate build at that path). */}
+          <a href="/learn" className="btn btn--ghost btn--lg">
+            <Globe size={16} /> Open in Browser
+          </a>
         </div>
+        <Link to="/courses" className="home-final__browse">
+          Browse all courses <ArrowRight size={14} />
+        </Link>
       </section>
 
       <MoreComparisons />

@@ -181,6 +181,45 @@
   box-shadow: 0 9px 26px rgba(242, 169, 59, 0.3);
 }
 
+/* "Open in browser" — ghost sibling of the amber Download CTA. Hidden on
+   tighter desktop widths (it stays available in the homepage banner, the
+   Download page, and the mobile drawer) so the bar never crowds. */
+.nav__webcta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.nav__webcta svg {
+  color: var(--color-accent-warm);
+}
+.nav__webcta:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-color: color-mix(in srgb, var(--color-accent-warm) 40%, var(--color-border-default));
+}
+
+@media (max-width: 1080px) {
+  .nav__webcta {
+    display: none;
+  }
+}
+
+/* Drawer "Open in browser" sits under the Download CTA, centred to match. */
+.nav__drawer-weblink {
+  justify-content: center;
+  margin-top: 2px;
+}
+
 .nav__menu-btn {
   display: none;
   width: 46px;
