@@ -7,7 +7,12 @@
    field stays as low-key ambient depth. */
 .home-hero {
   position: relative;
-  padding: 36px var(--site-section-pad-x) 48px;
+  /* Pull the hero up under the fixed nav (cancelling the app-main top
+     padding) so its cosmic background flows behind the transparent-at-
+     top bar; the nav height is added back as top padding so the logo
+     and copy still sit just below the bar. */
+  margin-top: calc(-1 * var(--site-nav-height));
+  padding: calc(36px + var(--site-nav-height)) var(--site-section-pad-x) 48px;
   /* Hide horizontal overflow from particle parallax / artwork
      transforms so they don't spawn a horizontal scrollbar. */
   overflow: hidden;
@@ -617,7 +622,7 @@
 /* ─── Responsive ─────────────────────────────────────── */
 
 @media (max-width: 1000px) {
-  .home-hero { padding-top: 80px; }
+  .home-hero { padding-top: calc(80px + var(--site-nav-height)); }
   .home-hero__inner--stacked { gap: 28px; }
   .home-row__layout { grid-template-columns: 1fr; gap: 32px; }
   .home-row__layout--reverse > .home-row__copy,
