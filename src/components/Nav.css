@@ -55,13 +55,13 @@
 }
 
 .nav__brand-icon {
-  /* The rotating Libre.academy wordmark, shrunk into the bar. The
-     variants have different aspect ratios, so cap the height and let
-     width flow; max-width keeps the widest variant from crowding the
-     links. A soft amber glow ties it to the brand accent. */
+  /* The "LIBRE.ACADEMY" wordmark, sized to the bar. It's a wide
+     logotype (~2.35:1), so drive it by height and let width flow;
+     max-width keeps it from crowding the links. A soft amber glow
+     ties it to the brand accent. */
   height: 34px;
   width: auto;
-  max-width: 190px;
+  max-width: 220px;
   object-fit: contain;
   display: block;
   flex-shrink: 0;

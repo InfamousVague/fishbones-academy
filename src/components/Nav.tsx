@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { GithubMark } from "./icons/GithubMark";
 import { DiscordMark } from "./icons/DiscordMark";
-import { GROOVY_LOGO } from "../lib/rotationLogo";
+import { NAV_LOGO } from "../lib/rotationLogo";
 import TipPopover from "./TipPopover";
 import "./Nav.css";
 
@@ -59,15 +59,15 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // The header always uses the "groovy" psychedelic logo — it reads
-  // best in the bar — regardless of which variant the hero rotated to.
+  // The header uses the compact "LIBRE.ACADEMY" wordmark — a wide
+  // logotype reads better at bar height than the square hero mark.
   // On the homepage the bar logo stays hidden until you scroll past
-  // the oversized hero logo, at which point this compact copy fades in;
+  // the oversized hero logo, at which point this wordmark fades in;
   // on every other route there's no hero to scroll past, so it shows
   // immediately.
   const isHome = pathname === "/";
   const showBrand = !isHome || scrolled;
-  const logo = GROOVY_LOGO;
+  const logo = NAV_LOGO;
 
   const renderLink = (l: (typeof LINKS)[number], drawer = false) => {
     const Icon = l.icon;
