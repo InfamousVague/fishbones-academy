@@ -117,11 +117,12 @@ const ROW_THEMES: Array<
   | { theme: string; bg: string; asset: { src: string; place: string } }
   | null
 > = [
-  // Row 0 — "every language, one app" → kaiju (teal).
+  // Row 0 — "every language, one app" → kaiju (teal). Transparent
+  // looping video (Safari/reduced-motion fall back to asset-kaiju.png).
   {
     theme: "theme-kaiju",
     bg: "bg-courses-hero.jpg",
-    asset: { src: "asset-kaiju.png", place: "kaiju" },
+    asset: { src: "asset-kaiju.webm", place: "kaiju" },
   },
   // Row 1 — "free + open source / no paywall" → alien invasion (lime),
   // with the flying-saucer asset.

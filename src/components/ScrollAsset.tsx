@@ -1,22 +1,29 @@
-/// A big foreground "moving asset" that animates in 3D as its hero
-/// section scrolls through the viewport — the rocket flying up, the
-/// kaiju looming, the saucer drifting, etc.
+/// A big foreground "moving asset" that parallaxes as its section
+/// scrolls through the viewport — the rocket flying up, the kaiju
+/// looming, the saucer drifting, etc.
+///
+/// The asset can be a still image OR a transparent looping video
+/// (detected by file extension). Videos render as a muted, inline,
+/// looping <video> with the matching still PNG as its poster — so
+/// browsers that can't play the alpha WebM (Safari) and reduced-motion
+/// users simply see the static frame. An IntersectionObserver defers
+/// loading + playback until the asset nears the viewport and pauses it
+/// once it leaves, so an off-screen alpha video never burns decode time.
 ///
 /// It tracks its OWN scroll position (framer-motion `useScroll` with
 /// the wrapper as target, progress 0 → 1 as the asset travels from the
-/// bottom of the viewport to the top) and maps that progress onto
-/// translateY (parallax), a little rotateX/rotateY/rotateZ tilt and a
-/// scale — the wrapper carries a CSS `perspective` so the rotations
-/// read as real 3D depth rather than a flat skew. `prefers-reduced-
-/// motion` drops all of it to a static image.
+/// bottom of the viewport to the top) and maps that onto translateY
+/// (parallax), a slight rotateZ tilt and a scale. Only cheap 2D
+/// transforms run so the movement stays GPU-composited and smooth.
+/// `prefers-reduced-motion` drops all of it to a static image.
 ///
-/// Render it as a direct child of an isolated `.atmos` hero (or any
+/// Render it as a direct child of a `.parallax-host` (or any
 /// `position: relative; isolation: isolate` host): it sits at
 /// `z-index: -1`, above the atmosphere backdrop but behind the text,
-/// and a placement class positions/sizes it in the hero's detail zone
-/// (away from the text-safe area).
+/// and a placement class positions/sizes it in the section's detail
+/// zone (away from the text-safe area).
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   motion,
   useScroll,
@@ -28,8 +35,9 @@ import "./ScrollAsset.css";
 type Range = [number, number];
 
 interface ScrollAssetProps {
-  /// Filename under /public/backgrounds/ (e.g. "asset-rocket.png"), or
-  /// an absolute path.
+  /// Filename under /public/backgrounds/ (e.g. "asset-rocket.png" or
+  /// "asset-kaiju.webm"), or an absolute path. A video extension
+  /// (.webm/.mp4/.mov) switches this to looping-video mode.
   src: string;
   /// Placement modifier class (see ScrollAsset.css), e.g. "rocket".
   place: string;
@@ -48,6 +56,8 @@ interface ScrollAssetProps {
   opacity?: Range;
 }
 
+const VIDEO_RE = /\.(webm|mp4|mov)$/i;
+
 export function ScrollAsset({
   src,
   place,
@@ -57,6 +67,7 @@ export function ScrollAsset({
   opacity = [1, 1],
 }: ScrollAssetProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
 
   // Progress 0 when the asset's top enters the bottom of the viewport,
@@ -73,18 +84,65 @@ export function ScrollAsset({
   const opacityV = useTransform(scrollYProgress, [0, 1], opacity);
 
   const url = src.startsWith("/") ? src : `/backgrounds/${src}`;
+  const isVideo = VIDEO_RE.test(src);
+  // The still poster / fallback shares the asset's basename (the video
+  // and its PNG are exported to the same crop, so swapping never shifts
+  // the layout).
+  const poster = isVideo ? url.replace(VIDEO_RE, ".png") : url;
+
+  // Only decode the alpha video while it's near the viewport: load +
+  // play on approach, pause on exit. preload="none" keeps the file off
+  // the wire until the observer first calls play().
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) void v.play().catch(() => {});
+          else v.pause();
+        }
+      },
+      { rootMargin: "300px 0px" },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, [isVideo, reduce]);
+
+  const motionStyle = {
+    y: yV,
+    scale: scaleV,
+    rotateZ: rotateZV,
+    opacity: opacityV,
+  };
 
   return (
     <div ref={ref} className={`scroll-asset scroll-asset--${place}`} aria-hidden>
       {reduce ? (
+        // Reduced motion: static poster frame, no parallax, no playback.
         <img
-          src={url}
+          src={poster}
           alt=""
           className="scroll-asset__img"
           draggable={false}
           loading="lazy"
           decoding="async"
         />
+      ) : isVideo ? (
+        <motion.video
+          ref={videoRef}
+          className="scroll-asset__img"
+          poster={poster}
+          loop
+          muted
+          playsInline
+          preload="none"
+          disablePictureInPicture
+          draggable={false}
+          style={motionStyle}
+        >
+          <source src={url} type="video/webm" />
+        </motion.video>
       ) : (
         <motion.img
           src={url}
@@ -93,12 +151,7 @@ export function ScrollAsset({
           draggable={false}
           loading="lazy"
           decoding="async"
-          style={{
-            y: yV,
-            scale: scaleV,
-            rotateZ: rotateZV,
-            opacity: opacityV,
-          }}
+          style={motionStyle}
         />
       )}
     </div>
