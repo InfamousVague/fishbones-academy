@@ -74,7 +74,7 @@ export function Nav() {
     const base = drawer ? "nav__drawer-link" : "nav__link";
     const inner = (
       <>
-        <Icon size={drawer ? 17 : 15} aria-hidden />
+        <Icon size={drawer ? 18 : 17} aria-hidden />
         <span>{l.label}</span>
       </>
     );
@@ -132,7 +132,7 @@ export function Nav() {
             rel="noopener noreferrer"
             aria-label="View Libre Academy on GitHub"
           >
-            <GithubMark size={16} />
+            <GithubMark size={18} />
           </a>
           <a
             className="nav__link nav__link--icon"
@@ -141,12 +141,12 @@ export function Nav() {
             rel="noopener noreferrer"
             aria-label="Join the Libre Discord"
           >
-            <DiscordMark size={16} />
+            <DiscordMark size={18} />
           </a>
           {/* Tip jar — port of the desktop app's TipDropdown. */}
           <TipPopover />
           <Link to="/download" className="nav__cta">
-            <Download size={15} aria-hidden /> Download
+            <Download size={17} aria-hidden /> Download
           </Link>
         </nav>
 

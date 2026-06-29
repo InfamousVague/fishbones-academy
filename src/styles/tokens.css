@@ -333,7 +333,9 @@
   --site-section-pad-y: 96px;
   --site-section-pad-y-sm: 56px;
   --site-section-pad-x: 24px;
-  --site-nav-height: 60px;
+  /* Tall brand bar so the LIBRE.ACADEMY wordmark can read large. The
+     media-query override just below brings it back down on phones. */
+  --site-nav-height: 120px;
 
   /* Glass surfaces. We use them sparingly — backdrop-blur on the nav,
      a subtle one on hero cards. */
@@ -343,6 +345,16 @@
 
   /* Shiki overrides. */
   --shiki-bg: var(--color-bg-secondary);
+}
+
+/* Shorter brand bar on phones so the tall header doesn't eat the
+   viewport. Declared here (after the base token, same file) so it
+   reliably wins the cascade and flows to app-main padding + every
+   sticky offset that reads --site-nav-height. */
+@media (max-width: 880px) {
+  :root {
+    --site-nav-height: 84px;
+  }
 }
 
 /* Lock to dark for now. */
