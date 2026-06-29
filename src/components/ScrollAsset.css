@@ -33,7 +33,7 @@
 .scroll-asset--robot {
   bottom: 10%;
   left: 0%;
-  width: clamp(250px, 48vw, 520px);
+  width: clamp(250px, 38vw, 520px);
 }
 
 /* Kaiju looming bottom-right (kaiju row). Capped so it only overlaps
@@ -47,8 +47,8 @@
 
 /* Saucer drifting in from the top-right (alien row). */
 .scroll-asset--saucer {
-  top: 3%;
-  left: -1%;
+  top: -20%;
+  right: -1%;
   width: clamp(300px, 53vw, 600px);
 }
 
@@ -81,7 +81,7 @@
     left: -6%;
   }
   .scroll-asset--robot {
-    width: 82vw;
+    width: 52vw;
     bottom: 5%;
     left: -10%;
   }
@@ -94,8 +94,7 @@
   .scroll-asset--saucer {
     width: 90vw;
     top: 2%;
-    right: -10%;
-    left: auto;
+    right: 0%;
   }
   .scroll-asset--creature {
     width: 88vw;
