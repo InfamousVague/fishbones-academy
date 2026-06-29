@@ -41,8 +41,8 @@
    still reading as a large creature as it parallaxes. */
 .scroll-asset--kaiju {
   bottom: -4%;
-  right: -8%;
-  width: clamp(340px, 48vw, 760px);
+  right: -10%;
+  width: clamp(380px, 56vw, 1040px);
 }
 
 /* Saucer drifting in from the top-right (alien row). */
