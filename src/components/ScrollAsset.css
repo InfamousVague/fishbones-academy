@@ -42,7 +42,7 @@
 .scroll-asset--kaiju {
   bottom: -4%;
   right: -10%;
-  width: clamp(380px, 56vw, 1040px);
+  width: clamp(380px, 70vw, 1040px);
 }
 
 /* Saucer drifting in from the top-right (alien row). */
