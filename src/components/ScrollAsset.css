@@ -36,11 +36,13 @@
   width: clamp(250px, 48vw, 520px);
 }
 
-/* Kaiju looming bottom-right (kaiju row). */
+/* Kaiju looming bottom-right (kaiju row). Capped so it only overlaps
+   the cards a bit on big monitors instead of swallowing them, while
+   still reading as a large creature as it parallaxes. */
 .scroll-asset--kaiju {
-  bottom: 0%;
-  right: -34%;
-  width: clamp(220px, 76vw, 1840px);
+  bottom: -4%;
+  right: -8%;
+  width: clamp(340px, 48vw, 760px);
 }
 
 /* Saucer drifting in from the top-right (alien row). */
