@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -244,8 +245,8 @@ export function Home() {
       {FEATURE_ROWS.map((row, i) => {
         const t = ROW_THEMES[i];
         return (
+        <Fragment key={row.eyebrow}>
         <motion.section
-          key={row.eyebrow}
           className={`section home-row${t ? ` parallax-host ${t.theme}` : ""}`}
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -285,6 +286,29 @@ export function Home() {
             </aside>
           </div>
         </motion.section>
+
+        {/* "No paywall. Ever." pillar — moved out of the comparison to
+            sit on a solid-black breather between the kaiju row and the
+            alien/saucer row, so the differentiator lands mid-scroll
+            rather than buried under the table at the foot of the page. */}
+        {i === 0 && (
+          <section className="section">
+            <div className="cmp__pillar">
+              <div className="cmp__pillar-mark" aria-hidden>
+                ∞
+              </div>
+              <div className="cmp__pillar-copy">
+                <h3 className="cmp__pillar-title">No paywall. Ever.</h3>
+                <p className="cmp__pillar-lede">
+                  Libre Academy is MIT-licensed and will stay free forever. If a
+                  future maintainer ever tries to put a course behind a paywall,
+                  fork the repo and host the open version yourself.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+        </Fragment>
         );
       })}
 

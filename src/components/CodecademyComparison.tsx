@@ -22,10 +22,9 @@
 ///      not for us; snark would erode trust on the very page
 ///      that's asking for it.
 ///
-/// The closing pull-quote / pillar is the "No paywall, ever"
-/// promise (the user's lock #15). Sits below the table so the
-/// reader's last impression is the differentiator, not a
-/// comparison check.
+/// (The "No paywall, ever" pillar that used to close this table now
+/// lives on the home page between the feature rows — see Home.tsx —
+/// so the differentiator lands mid-scroll instead of at the foot.)
 
 import { Check, X, Minus } from "lucide-react";
 import "./CodecademyComparison.css";
@@ -252,24 +251,6 @@ export function CodecademyComparison() {
         </a>{" "}
         for the latest details.
       </p>
-
-      {/* "No paywall, ever" pillar — the emphatic closer to the
-          comparison (lock #15). Sits below the table so the
-          reader's LAST impression is the differentiator, not a
-          row of check marks. */}
-      <div className="cmp__pillar">
-        <div className="cmp__pillar-mark" aria-hidden>
-          ∞
-        </div>
-        <div className="cmp__pillar-copy">
-          <h3 className="cmp__pillar-title">No paywall. Ever.</h3>
-          <p className="cmp__pillar-lede">
-            Libre Academy is MIT-licensed and will stay free forever. If a
-            future maintainer ever tries to put a course behind a paywall,
-            fork the repo and host the open version yourself.
-          </p>
-        </div>
-      </div>
     </section>
   );
 }
