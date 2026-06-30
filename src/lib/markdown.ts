@@ -141,9 +141,34 @@ function decodeEntities(s: string): string {
 /// Truncate a markdown string to roughly maxChars, breaking at a
 /// paragraph boundary so we don't slice mid-sentence. Used by the
 /// course detail preview.
+///
+/// Lesson bodies can embed `![alt](data:image/…;base64,…)` concept images
+/// whose data URIs run to tens of thousands of characters. Left inline, one
+/// blows the whole budget and — worse — the slice lands inside the base64,
+/// leaving a `![…](data:…` with no closing paren that markdown-it can't parse
+/// and dumps as raw text (the giant base64 blob the preview used to show). So
+/// stub the data-URI images out, truncate on the actual prose, then restore the
+/// complete ones (any whose stub got cut just drop out).
+const IMG_OPEN = "\uE000"; //  private-use delimiters —
+const IMG_CLOSE = "\uE001"; // never appear in lesson content
+
 export function truncateMarkdown(source: string, maxChars = 1800): string {
-  if (source.length <= maxChars) return source;
-  const cut = source.slice(0, maxChars);
-  const lastBreak = cut.lastIndexOf("\n\n");
-  return (lastBreak > maxChars * 0.5 ? cut.slice(0, lastBreak) : cut) + "\n\n…";
+  const images: string[] = [];
+  let stubbed = source.replace(/!\[[^\]]*\]\(data:[^)]*\)/g, (m) => {
+    images.push(m);
+    return `${IMG_OPEN}${images.length - 1}${IMG_CLOSE}`;
+  });
+
+  if (stubbed.length > maxChars) {
+    const cut = stubbed.slice(0, maxChars);
+    const lastBreak = cut.lastIndexOf("\n\n");
+    stubbed =
+      (lastBreak > maxChars * 0.5 ? cut.slice(0, lastBreak) : cut) + "\n\n…";
+  }
+
+  return stubbed
+    // restore complete image stubs to their full markdown
+    .replace(new RegExp(`${IMG_OPEN}(\\d+)${IMG_CLOSE}`, "g"), (_, i) => images[+i] ?? "")
+    // drop any partial stub left by a mid-placeholder cut
+    .replace(new RegExp(`[${IMG_OPEN}${IMG_CLOSE}]\\d*`, "g"), "");
 }
