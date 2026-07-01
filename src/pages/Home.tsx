@@ -22,6 +22,7 @@ import { LogoHero } from "../components/LogoHero";
 import { ParallaxBg } from "../components/ParallaxBg";
 import { ScrollAsset } from "../components/ScrollAsset";
 import { ScreenshotCarousel } from "../components/ScreenshotCarousel";
+import { LiveLessonCard } from "../components/LiveLessonCard";
 import "./Home.css";
 
 /// App screenshots for the homepage carousel.
@@ -37,6 +38,22 @@ const APP_SHOTS = [
   {
     src: "/screenshots/app-collections.png",
     alt: "A Rust lesson on collections, with the course outline, a progress certificate and an illustrated concept card.",
+  },
+  {
+    src: "/screenshots/app-editor.png",
+    alt: "The in-app code editor running a Rust exercise, graded instantly by hidden tests — write real code, not multiple-choice.",
+  },
+  {
+    src: "/screenshots/app-lesson.png",
+    alt: "An interactive lesson: prose, an illustrated concept card, and a runnable code exercise side by side.",
+  },
+  {
+    src: "/screenshots/app-challenges.png",
+    alt: "The Challenges view — Exercism tracks, rustlings-style drill packs and koans across 26 languages.",
+  },
+  {
+    src: "/screenshots/app-themes.png",
+    alt: "The theme picker — Libre's halftone-tinted themes applied live across the whole app.",
   },
 ];
 
@@ -226,6 +243,28 @@ export function Home() {
           </h2>
         </div>
         <ScreenshotCarousel images={APP_SHOTS} />
+      </motion.section>
+
+      {/* ─── Live lesson — a real Rust basics exercise, playable inline ─── */}
+      <motion.section
+        className="section live-lesson"
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <div className="home-row-head home-row-head--centered">
+          <span className="section__eyebrow">No install required to try it</span>
+          <h2 className="section__title section__title--centered">
+            A real lesson, right here.
+          </h2>
+          <p className="section__subtitle section__subtitle--centered">
+            An actual exercise from <i>The Rust Programming Language</i> — read
+            it, write the code, run it, and watch the hidden tests grade your
+            work. The same loop the app runs for {COURSE_COUNT_ROUNDED} courses.
+          </p>
+        </div>
+        <LiveLessonCard />
       </motion.section>
 
       {/* ─── Feature cards ──────────────────────────────── */}

@@ -1,0 +1,33 @@
+# Libre Academy
+
+> Free, open-source, interactive learn-to-code platform: 90+ courses across 26 programming languages. Learners write real code — in the browser or a desktop app — and it's graded instantly by hidden test suites. Zero paywall, no sign-up required to start. A genuinely free alternative to Codecademy, freeCodeCamp, and Exercism.
+
+Libre Academy (https://libre.academy) is a local-first coding-education project. Every lesson runs the learner's actual code with immediate feedback, not multiple-choice quizzes. Content spans official-style language books, fix-the-code drill packs (Rustlings/Golings-style), structured exercise tracks, koans, and hand-written challenge sets. It runs as a web app and as a free signed desktop app (macOS/Windows/Linux). The project is open and ad-free.
+
+## Start here
+- [All courses](https://libre.academy/courses): the full catalog of 90+ interactive courses (books, drills, exercise tracks, koans, challenge packs), each runnable with real code execution.
+- [Browse by language](https://libre.academy/languages): courses organized across the 26 supported languages.
+- [Download the desktop app](https://libre.academy/download): the offline-capable signed desktop build.
+
+## Popular languages
+- [Rust](https://libre.academy/languages/rust)
+- [Python](https://libre.academy/languages/python)
+- [JavaScript](https://libre.academy/languages/javascript)
+- [TypeScript](https://libre.academy/languages/typescript)
+- [Go](https://libre.academy/languages/go)
+- [Zig](https://libre.academy/languages/zig)
+- [C](https://libre.academy/languages/c) · [C++](https://libre.academy/languages/cpp) · [C#](https://libre.academy/languages/csharp) · [Java](https://libre.academy/languages/java) · [Kotlin](https://libre.academy/languages/kotlin) · [Swift](https://libre.academy/languages/swift) · [SQL](https://libre.academy/languages/sql) · [Solidity](https://libre.academy/languages/solidity)
+
+## How it works
+- Real code, not quizzes: lessons execute the learner's code and grade it against hidden tests, the same way Exercism or a real test suite would.
+- Free and open: no paywall, no required account to begin, no ads.
+- Two ways to use it: an in-browser web app and a downloadable desktop app with local language toolchains.
+
+## For people comparing options
+- [Free alternative to Codecademy](https://libre.academy/free-alternative-to-codecademy)
+- [freeCodeCamp alternative](https://libre.academy/freecodecamp-alternative)
+
+## More
+- [Docs](https://libre.academy/docs)
+- [Blog](https://libre.academy/blog)
+- [Privacy](https://libre.academy/privacy) · [Terms](https://libre.academy/terms)

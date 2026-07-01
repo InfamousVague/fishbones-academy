@@ -251,6 +251,19 @@ export function CodecademyComparison() {
         </a>{" "}
         for the latest details.
       </p>
+
+      {/* Surfaces the standalone /alternatives hub right under the table.
+          A full-navigation <a>, NOT a router <Link>: /alternatives is a
+          prerendered static page, not an SPA route, so client-side routing
+          would 404 (same pattern as the "/learn" link on the home page).
+          This is also what de-orphans the per-competitor "alternative to
+          X" landing pages — they were previously linked from nowhere. */}
+      <p className="cmp__alt-cta">
+        <a className="cmp__alt-cta-link" href="/alternatives">
+          See how Libre compares to freeCodeCamp, Treehouse, DataCamp &amp; more
+          <span aria-hidden> →</span>
+        </a>
+      </p>
     </section>
   );
 }

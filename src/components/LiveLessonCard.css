@@ -1,0 +1,321 @@
+/* Live Rust lesson card. See LiveLessonCard.tsx. */
+
+.live-card {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-secondary, #18181b);
+  box-shadow:
+    0 40px 90px -34px rgba(0, 0, 0, 0.85),
+    0 0 70px -28px rgba(242, 169, 59, 0.16);
+  text-align: left;
+}
+
+/* ── Lesson pane ── */
+.live-card__lesson {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 30px;
+  border-right: 1px solid var(--color-border-default);
+}
+.live-card__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--color-accent-warm);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.live-card__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+.live-card__prose,
+.live-card__note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--color-text-secondary);
+}
+.live-card__note {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+.live-card__prose b,
+.live-card__note b {
+  color: var(--color-text-primary);
+}
+.live-card code {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 1px 6px;
+  border-radius: 5px;
+  color: var(--color-text-primary);
+}
+.live-card__attrib {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+}
+
+/* ── Editor pane ── */
+.live-card__editor {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: #0c0c10;
+}
+.live-card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.live-card__file {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.live-card__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e0734d;
+}
+.live-card__actions {
+  display: flex;
+  gap: 8px;
+}
+.live-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.live-card__btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--color-text-primary);
+}
+.live-card__btn--run {
+  border-color: transparent;
+  color: #1a1206;
+  background: linear-gradient(135deg, var(--color-accent-warm), var(--color-accent-warm-hover));
+}
+.live-card__btn--run:hover {
+  filter: brightness(1.06);
+  color: #1a1206;
+}
+.live-card__btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* Editor: transparent <textarea> over a highlighted <pre>. Both MUST share
+   font metrics + padding so the caret lines up with the highlighted text. */
+.ce {
+  position: relative;
+  height: 248px;
+}
+.ce__hl,
+.ce__ta {
+  margin: 0;
+  border: 0;
+  padding: 16px 18px;
+  font-family: var(--font-mono, ui-monospace, "SF Mono", Menlo, Consolas, monospace);
+  font-size: 13.5px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  tab-size: 4;
+  white-space: pre;
+  word-wrap: normal;
+  box-sizing: border-box;
+}
+.ce__hl {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  pointer-events: none;
+  color: #e6e6ea;
+}
+.ce__hl code {
+  font: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+}
+.ce__ta {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  overflow: auto;
+  background: transparent;
+  color: transparent;
+  caret-color: #f2a93b;
+  outline: none;
+}
+
+/* ── Output: Console / Tests ── */
+.live-card__output {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.live-card__tabs {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px 0;
+}
+.live-card__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 0;
+  background: none;
+  color: var(--color-text-tertiary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 7px 7px 0 0;
+}
+.live-card__tab.is-active {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+.live-card__pill {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 1px 6px;
+  border-radius: 99px;
+}
+.live-card__pill.is-pass {
+  background: rgba(63, 185, 80, 0.18);
+  color: #65d27e;
+}
+.live-card__pill.is-fail {
+  background: rgba(224, 83, 63, 0.18);
+  color: #f08a78;
+}
+.live-card__panel {
+  min-height: 116px;
+  max-height: 176px;
+  overflow: auto;
+  padding: 14px 18px;
+}
+.live-card__placeholder {
+  margin: 0;
+  color: var(--color-text-tertiary);
+  font-size: 13.5px;
+  font-family: var(--font-mono, monospace);
+}
+.live-card__console {
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  line-height: 1.55;
+  color: #cfcfd6;
+  white-space: pre-wrap;
+}
+.live-card__console.is-err {
+  color: #f0a08e;
+}
+.live-card__tests {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.live-card__tests li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.live-card__test-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.live-card__tests li.is-pass .live-card__test-icon {
+  background: rgba(63, 185, 80, 0.16);
+  color: #65d27e;
+}
+.live-card__tests li.is-fail .live-card__test-icon {
+  background: rgba(224, 83, 63, 0.16);
+  color: #f08a78;
+}
+.live-card__test-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.live-card__test-body code {
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: var(--color-text-primary);
+}
+.live-card__test-msg {
+  font-family: var(--font-mono, monospace);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+  white-space: pre-wrap;
+}
+
+/* Rust token colours (Tokyo-night-ish, reads on the dark editor). */
+.tok-com { color: #6b7280; font-style: italic; }
+.tok-str { color: #9ece6a; }
+.tok-kw { color: #bb9af7; }
+.tok-type { color: #7dcfff; }
+.tok-mac { color: #f7768e; }
+.tok-num { color: #ff9e64; }
+.tok-fn { color: #7aa2f7; }
+.tok-attr,
+.tok-life { color: #e0af68; }
+
+@media (max-width: 880px) {
+  .live-card {
+    grid-template-columns: 1fr;
+  }
+  .live-card__lesson {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-default);
+  }
+}

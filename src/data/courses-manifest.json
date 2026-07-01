@@ -1,6 +1,6 @@
 {
-  "version": 29,
-  "generatedAt": "2026-06-27T22:30:00.399Z",
+  "version": 30,
+  "generatedAt": "2026-06-29T15:13:55.466Z",
   "archiveBaseUrl": "https://libre.academy/courses",
   "courses": [
     {
@@ -75,13 +75,29 @@
       "language": "rust",
       "file": "the-rust-programming-language.json",
       "cover": "the-rust-programming-language.jpg",
-      "sizeBytes": 4553885,
-      "archiveSizeBytes": 3245085,
+      "sizeBytes": 4568310,
+      "archiveSizeBytes": 3244963,
       "archiveUrl": "https://libre.academy/courses/the-rust-programming-language.academy",
       "packType": "course",
       "releaseStatus": "VERIFIED",
       "tier": "core",
       "lessonCount": 168
+    },
+    {
+      "id": "rust-by-example",
+      "packId": "rust-by-example",
+      "title": "Rust by Example",
+      "author": "The Rust Project",
+      "language": "rust",
+      "file": "rust-by-example.json",
+      "cover": "rust-by-example.jpg",
+      "sizeBytes": 1110573,
+      "archiveSizeBytes": 975044,
+      "archiveUrl": "https://libre.academy/courses/rust-by-example.academy",
+      "packType": "course",
+      "releaseStatus": "ALPHA",
+      "tier": "remote",
+      "lessonCount": 26
     },
     {
       "id": "rustonomicon",

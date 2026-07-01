@@ -27,6 +27,9 @@ export function Footer() {
             <Link to="/#features">Features</Link>
             <Link to="/courses">Courses</Link>
             <Link to="/languages">Languages</Link>
+            {/* Plain <a>, not <Link>: /alternatives is a prerendered
+                static page, not an SPA route. */}
+            <a href="/alternatives">Compare</a>
           </div>
           <div className="site-footer__col">
             <h4 className="site-footer__col-title">Product</h4>

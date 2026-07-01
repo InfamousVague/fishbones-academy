@@ -212,7 +212,7 @@ function header() {
 }
 function footer() {
   return `<hr><footer><p>Libre Academy — free, open-source interactive coding courses. ${COURSE_COUNT_ROUNDED} courses across ${LANGUAGE_COUNT} languages, no paywall.</p>
-<p><a href="/">Home</a><a href="/courses">Courses</a><a href="/languages">Languages</a><a href="/download">Download</a><a href="/docs">Docs</a><a href="/blog">Blog</a><a href="/about">About</a><a href="https://github.com/InfamousVague/Libre.academy">GitHub</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></p>
+<p><a href="/">Home</a><a href="/courses">Courses</a><a href="/languages">Languages</a><a href="/download">Download</a><a href="/docs">Docs</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/alternatives">Compare</a><a href="https://github.com/InfamousVague/Libre.academy">GitHub</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></p>
 <p>© Libre Academy · MIT licensed · <a href="${SITE}/">libre.academy</a></p></footer>`;
 }
 const shell = (mainHtml) =>
@@ -1133,6 +1133,118 @@ ${faqDl(faq)}
           "@type": "ListItem",
           position: i + 1,
           name: n,
+        })),
+      },
+    ],
+  });
+}
+
+// 4) /alternatives — the comparison HUB. Ties the per-competitor
+//    "alternative to X" pages together (so they stop being orphans),
+//    is linked from the static footer + the home-page comparison table,
+//    and targets the broad "free alternatives to <paid coding platform>"
+//    intent in its own right.
+{
+  const ALT_AS_OF = "June 2026";
+  const faq = [
+    [
+      "What's the best free alternative to the paid coding platforms?",
+      `It depends on your goal. If you want to learn by writing real code with instant test feedback across many languages, Libre Academy is a strong free, open-source pick — ${COURSE_COUNT} courses across ${LANGUAGE_COUNT} languages, no paywall and no sign-up. For a structured web-development certification path, freeCodeCamp is excellent and also free.`,
+    ],
+    [
+      "Is Libre Academy really free, with no paid tier?",
+      "Yes. Every course is free, there is no Pro tier, and you don't need an account to start. The website, the desktop app and the cloud-sync server are all open source under the MIT license.",
+    ],
+    [
+      "Which platforms does Libre Academy compare to?",
+      "Most people weigh it against Codecademy, freeCodeCamp, Team Treehouse and DataCamp — all compared honestly on this page — and against Mimo, SoloLearn, Scrimba, Boot.dev, Educative and Brilliant.",
+    ],
+  ];
+  emitStandalone({
+    path: "/alternatives",
+    title: "Free alternatives to Codecademy, freeCodeCamp & more — Libre Academy",
+    description:
+      `How Libre Academy — a free, open-source app to learn ${LANGUAGE_COUNT} languages by writing real code — compares to Codecademy, freeCodeCamp, Team Treehouse, DataCamp and the other paid coding platforms. Honest, side-by-side, no sign-up.`,
+    main: `<main>
+<h1>Free, open-source alternatives to the paid coding platforms</h1>
+<p class="lede">Libre Academy is a free way to learn to code: you write real code in a built-in editor, graded instantly by hidden tests, across ${LANGUAGE_COUNT} languages — in a desktop app for macOS, Windows and Linux, with no paywall and no sign-up. Here's an honest, side-by-side look at how it stacks up against the platforms people usually compare it to. Every Libre claim is verifiable in our open-source repo; every competitor claim describes their public product as of ${ALT_AS_OF}.</p>
+<p><a href="/download">Download the app →</a> &nbsp; <a href="/courses">Browse all ${COURSE_COUNT} courses</a></p>
+
+<h2>Jump to a comparison</h2>
+<ul>
+<li><a href="/free-alternative-to-codecademy">Libre vs Codecademy</a> — the free, open-source alternative with no Pro paywall.</li>
+<li><a href="/freecodecamp-alternative">Libre vs freeCodeCamp</a> — two free, open-source options, and when to use which.</li>
+<li><a href="#vs-treehouse">Libre vs Team Treehouse</a> — a real editor and tests instead of subscription video.</li>
+<li><a href="#vs-datacamp">Libre vs DataCamp</a> — full-stack development across ${LANGUAGE_COUNT} languages, not just data.</li>
+<li><a href="/best-free-way-to-learn-to-code">The best free ways to learn to code in 2026</a> — an honest roundup.</li>
+</ul>
+
+<h2 id="vs-codecademy">Libre Academy vs Codecademy</h2>
+<p>Same write-real-code style, but 100% free and open source — no Pro tier gating paths or projects, and no sign-up to start. <a href="/free-alternative-to-codecademy">Read the full Libre vs Codecademy comparison →</a></p>
+${compareTable("Codecademy", [
+  ["Price", "Free", "Free tier + paid Pro"],
+  ["Open source", "Yes (MIT)", "No"],
+  ["Languages", String(LANGUAGE_COUNT), "~14"],
+  ["Sign-up to start", "Not required", "Required"],
+  ["Desktop app (offline)", "Yes", "No"],
+])}
+
+<h2 id="vs-freecodecamp">Libre Academy vs freeCodeCamp</h2>
+<p>Both are free and open source. freeCodeCamp shines for the web-development certification path and its huge community; Libre covers ${LANGUAGE_COUNT} languages with hidden tests on every lesson and can turn your own books into courses. <a href="/freecodecamp-alternative">Read the full Libre vs freeCodeCamp comparison →</a></p>
+${compareTable("freeCodeCamp", [
+  ["Price", "Free", "Free"],
+  ["Open source", "Yes (MIT)", "Yes"],
+  ["Languages", `${LANGUAGE_COUNT} (incl. systems & Web3)`, "~10 (web-focused)"],
+  ["Free certifications", "No", "Yes"],
+  ["Sign-up to start", "Not required", "Required"],
+])}
+
+<h2 id="vs-treehouse">Libre Academy vs Team Treehouse</h2>
+<p>Team Treehouse is a subscription platform with video-heavy tracks and a hosted Workspaces IDE. Libre is free and open source, leads with an interactive editor and hidden tests rather than video, and runs fully offline as a desktop app.</p>
+${compareTable("Team Treehouse", [
+  ["Price", "Free forever", "$25 – $49 / mo subscription"],
+  ["Lesson format", "Interactive editor + hidden tests", "Heavily video-led"],
+  ["Languages", String(LANGUAGE_COUNT), "~12"],
+  ["Desktop app (offline)", "macOS · Windows · Linux", "Web only"],
+])}
+
+<h2 id="vs-datacamp">Libre Academy vs DataCamp</h2>
+<p>DataCamp focuses on data science and analytics (Python / R / SQL) on a subscription. Libre is free and open source and covers full-stack development across ${LANGUAGE_COUNT} languages, with a local AI tutor that runs on your own machine.</p>
+${compareTable("DataCamp", [
+  ["Price", "Free forever", "$25 – $39 / mo subscription"],
+  ["Scope", `Full-stack dev · ${LANGUAGE_COUNT} languages`, "Data science (Python/R/SQL)"],
+  ["Open source", "Yes (MIT)", "No"],
+  ["Sign-up to start", "Not required", "Required"],
+])}
+
+<h2>Also a free alternative to…</h2>
+<p>People also compare Libre Academy to <strong>Mimo</strong>, <strong>SoloLearn</strong>, <strong>Scrimba</strong>, <strong>Boot.dev</strong>, <strong>Educative</strong> and <strong>Brilliant</strong>. The throughline is the same: those are paid or freemium and closed-source, while Libre is free, open source, runs offline, asks for no account, and teaches by having you write real code graded by hidden tests across ${LANGUAGE_COUNT} languages.</p>
+
+<h2>Popular free courses to start with</h2>
+<ul>${cmpFeatured.map(courseLI).join("")}</ul>
+
+<h2>FAQ</h2>
+${faqDl(faq)}
+<p><a href="/download">Download the free app →</a> &nbsp; <a href="/courses">Browse all ${COURSE_COUNT} courses</a></p>
+</main>`,
+    priority: 0.9,
+    graph: [
+      breadcrumb([
+        { name: "Home", path: "/" },
+        { name: "Alternatives", path: "/alternatives" },
+      ]),
+      faqLd(faq),
+      {
+        "@type": "ItemList",
+        itemListElement: [
+          ["Libre Academy vs Codecademy", "/free-alternative-to-codecademy"],
+          ["Libre Academy vs freeCodeCamp", "/freecodecamp-alternative"],
+          ["The best free ways to learn to code in 2026", "/best-free-way-to-learn-to-code"],
+        ].map(([name, p], i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name,
+          url: SITE + p,
         })),
       },
     ],
