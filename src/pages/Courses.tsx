@@ -24,8 +24,8 @@ type AnyId = string | "all";
 /// surface, not a deeply linkable filter view.
 export function Courses() {
   useSeo({
-    title: `Free Coding Courses — Browse ${CATALOG.length} Courses in ${LANGUAGES.length} Programming Languages | Libre Academy`,
-    description: `Browse ${CATALOG.length} free interactive coding courses across ${LANGUAGES.length} languages — JavaScript, Python, Rust, Go, Solidity and more. Real editor, hidden tests, zero paywall.`,
+    title: `Free Coding Courses: Browse ${CATALOG.length} Courses in ${LANGUAGES.length} Programming Languages | Libre Academy`,
+    description: `Browse ${CATALOG.length} free interactive coding courses across ${LANGUAGES.length} languages: JavaScript, Python, Rust, Go, Solidity and more. Real editor, hidden tests, zero paywall.`,
     canonicalUrl: "https://libre.academy/courses",
   });
   const [query, setQuery] = useState("");
@@ -102,7 +102,7 @@ export function Courses() {
           <div className="courses-page__cover">
             <img
               src="/generic-snake-book-cover.png"
-              alt="Libre — catalogue cover"
+              alt="Libre catalogue cover"
               draggable={false}
             />
           </div>
@@ -118,9 +118,9 @@ export function Courses() {
               Free coding courses in {LANGUAGES.length} programming languages.
             </h1>
             <p className="section__subtitle">
-              {CATALOG.length} interactive courses to choose from — linear
+              {CATALOG.length} interactive courses to choose from: linear
               textbooks, framework deep-dives, and kata-style challenge
-              packs. Every one runs in the free desktop app — download it and
+              packs. Every one runs in the free desktop app, so download it and
               start writing code. No signup, no paywall.
             </p>
           </div>

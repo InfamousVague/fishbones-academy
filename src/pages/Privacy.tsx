@@ -4,8 +4,8 @@ import "./Legal.css";
 
 export function Privacy() {
   useSeo({
-    title: "Privacy Policy — Libre Academy",
-    description: "Libre Academy privacy policy. No tracking, no cookies, no PII. Progress stays on your device. Optional cloud sync stores only XP + completion timestamps.",
+    title: "Privacy Policy | Libre Academy",
+    description: "Libre Academy privacy policy. Anonymous, cookieless product analytics you can turn off. No cross-site tracking, no PII. Progress stays on your device. Optional cloud sync stores only XP + completion timestamps.",
     canonicalUrl: "https://libre.academy/privacy",
   });
   return (
@@ -17,19 +17,24 @@ export function Privacy() {
       <div className="md-body legal-page__body">
         <h2>Short version</h2>
         <p>
-          Libre Academy is open source and local-first. We don't run
-          analytics on this site. The desktop and browser apps don't ship
-          telemetry or error reporters. Cloud sync is opt-in and stores only
-          the small JSON-shaped record of your progress.
+          Libre Academy is open source and local-first. The apps use
+          anonymous, cookieless product analytics (Plausible) to help us
+          improve them. There's no personal data and no cross-site tracking,
+          and you can turn it off anytime under Settings → Data &amp; storage.
+          Cloud sync is opt-in and stores only the small JSON-shaped record
+          of your progress.
         </p>
 
         <h2>What this site logs</h2>
         <p>
           libre.academy is a static site served from a single VPS via
           Caddy. Caddy keeps standard access logs (IP, timestamp, requested
-          path, user agent) for ~7 days for operational purposes — diagnosing
-          outages, banning abusive scrapers. We don't run third-party
-          analytics. We don't ship cookies. We don't sell anything to anyone.
+          path, user agent) for ~7 days for operational purposes like
+          diagnosing outages and banning abusive scrapers. For product
+          analytics we run
+          self-hosted, first-party Plausible: anonymous and cookieless, with
+          no cross-site tracking, and you can opt out anytime in the app.
+          We don't ship cookies. We don't sell anything to anyone.
         </p>
 
         <h2>What the apps store</h2>

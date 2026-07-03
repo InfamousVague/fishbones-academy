@@ -179,9 +179,9 @@ export function CodecademyComparison() {
           Same interactive lessons, no paywall, source code on GitHub.
         </h2>
         <p className="cmp__subtitle">
-          Honest, row-by-row comparison. Every Libre claim is verifiable in
-          this repo; every Codecademy claim describes their public product
-          as of {AS_OF}.
+          Here's the honest, row-by-row breakdown. You can verify every Libre
+          claim in this repo, and every Codecademy claim describes their public
+          product as of {AS_OF}.
         </p>
       </div>
 
@@ -240,7 +240,7 @@ export function CodecademyComparison() {
 
       <p className="cmp__fineprint">
         Comparison as of {AS_OF}. Codecademy's plan structure and pricing
-        change over time —{" "}
+        change over time, so{" "}
         <a
           href="https://www.codecademy.com/pricing"
           target="_blank"

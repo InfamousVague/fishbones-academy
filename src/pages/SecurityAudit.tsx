@@ -40,21 +40,21 @@ const SUPPLY_CHAIN = [
     when: "Sep 2025",
     pkgs: "chalk · debug · ansi-styles · strip-ansi · color-convert",
     bad: "chalk@5.6.1, debug@4.4.2",
-    clear: "ship chalk 5.6.2, debug 4.4.3 — past the poisoned releases",
+    clear: "ship chalk 5.6.2, debug 4.4.3, safely past the poisoned releases",
   },
   {
     name: "@solana/web3.js backdoor",
     when: "Dec 2024",
     pkgs: "@solana/web3.js",
     bad: "1.95.6, 1.95.7",
-    clear: "ship 1.98.4 — the backdoored builds are not in the tree",
+    clear: "ship 1.98.4; the backdoored builds are not in the tree",
   },
   {
     name: "ua-parser-js hijack",
     when: "Oct 2021",
     pkgs: "ua-parser-js",
     bad: "0.7.29, 0.8.0, 1.0.0",
-    clear: "ship 1.0.41 — clean of the cryptominer releases",
+    clear: "ship 1.0.41, clean of the cryptominer releases",
   },
   {
     name: "node-ipc protestware",
@@ -82,18 +82,18 @@ const SUPPLY_CHAIN = [
 const POSTURE = [
   {
     icon: Lock,
-    title: "Sandboxed code execution — verified",
-    body: "The deep audit's headline question was whether learner code can escape to your machine. It can't: JavaScript / TypeScript / Python run in isolated Web Workers with no DOM, no Tauri bridge, and a hard kill-timer; web/React previews run on a separate localhost origin. Untrusted lesson code never reaches the native command bridge.",
+    title: "Sandboxed code execution, verified",
+    body: "The deep audit's headline question was whether learner code can escape to your machine. It can't. JavaScript / TypeScript / Python run in isolated Web Workers with no DOM, no Tauri bridge, and a hard kill-timer; web/React previews run on a separate localhost origin. Untrusted lesson code never reaches the native command bridge.",
   },
   {
     icon: ShieldCheck,
     title: "Minimal Tauri capability surface",
-    body: "The webview is granted only window + webview lifecycle permissions — no blanket filesystem, shell, or HTTP capability. A real Content-Security-Policy is set (no inline/eval scripts), there is no global Tauri injection, and auto-updates are minisign-signed against an embedded key.",
+    body: "The webview is granted only window + webview lifecycle permissions, with no blanket filesystem, shell, or HTTP capability. A real Content-Security-Policy is set (no inline/eval scripts), there is no global Tauri injection, and auto-updates are minisign-signed against an embedded key.",
   },
   {
     icon: GitBranch,
     title: "Solid auth & data isolation",
-    body: "Argon2id passwords and tokens, single-use SHA-256 reset tokens with timing-equalized anti-enumeration, JWKS-verified OAuth with issuer/audience pinning + PKCE + CSRF state, and strictly per-account data partitioning — one user cannot read another's progress or files.",
+    body: "Argon2id passwords and tokens, single-use SHA-256 reset tokens with timing-equalized anti-enumeration, JWKS-verified OAuth with issuer/audience pinning + PKCE + CSRF state, and strictly per-account data partitioning. One user cannot read another's progress or files.",
   },
   {
     icon: Lock,
@@ -102,8 +102,8 @@ const POSTURE = [
   },
   {
     icon: Eye,
-    title: "No silent telemetry; no secrets in git",
-    body: "Desktop / iOS builds send zero analytics. The site uses cookieless, self-hosted, first-party Plausible. No credentials are committed to either repository, and the deploy secret cannot reach the client bundle.",
+    title: "Anonymous, opt-out analytics; no secrets in git",
+    body: "The desktop, web, and site all use cookieless, self-hosted, first-party Plausible: anonymous, no personal data, no cross-site tracking. You can turn it off any time in the app under Settings → Data & storage. No credentials are committed to either repository, and the deploy secret cannot reach the client bundle.",
   },
   {
     icon: GitBranch,
@@ -118,22 +118,22 @@ const RESOLVED = [
   {
     title: "Toolchain installer command not allowlisted",
     sev: "was High",
-    body: "A backend command that installs language toolchains accepted a caller-supplied command string and ran it through a shell. Fixed: the supplied command is now rejected unless it exactly matches the small, fixed set the toolchain recipe can legitimately produce for that language.",
+    body: "A backend command that installs language toolchains accepted a caller-supplied command string and ran it through a shell. Fixed. The supplied command is now rejected unless it exactly matches the small, fixed set the toolchain recipe can legitimately produce for that language.",
   },
   {
     title: "Course-archive path traversal (zip-slip)",
     sev: "was High",
-    body: "Importing a maliciously crafted course archive could write files outside the courses directory because entry paths weren't checked for traversal. Fixed: every archive entry path and the archive's declared id are now component-validated; any `..` / absolute / drive component fails the whole import.",
+    body: "Importing a maliciously crafted course archive could write files outside the courses directory because entry paths weren't checked for traversal. Fixed. Every archive entry path and the archive's declared id are now component-validated; any `..` / absolute / drive component fails the whole import.",
   },
   {
     title: "Desktop OAuth callback not bound to the sign-in attempt",
     sev: "was High",
-    body: "The desktop sign-in deep link applied whatever token arrived without checking it came from the sign-in this app started — a crafted link could sign you into an unintended account. Fixed: the callback is now verified against a single-use, time-bounded session nonce (the same control the browser flow already had).",
+    body: "The desktop sign-in deep link applied whatever token arrived without checking it came from the sign-in this app started, so a crafted link could sign you into an unintended account. Fixed. The callback is now verified against a single-use, time-bounded session nonce (the same control the browser flow already had).",
   },
   {
     title: "AI agent auto-ran generated code by default",
     sev: "was Medium",
-    body: "The coding agent shipped with auto-approve on, so generated file writes / runs could happen unattended — risky because untrusted lesson text enters the model's context. Fixed: auto-approve now ships OFF; each write / patch / run asks for explicit approval (power users can re-enable it).",
+    body: "The coding agent shipped with auto-approve on, so generated file writes / runs could happen unattended, which is risky because untrusted lesson text enters the model's context. Fixed. Auto-approve now ships OFF; each write / patch / run asks for explicit approval (power users can re-enable it).",
   },
 ];
 
@@ -141,7 +141,7 @@ const RESOLVED = [
 /// general — none is a passive-user remote risk.
 const TRACKED = [
   "Per-IP rate-limiting on the unauthenticated auth / password-reset endpoints (currently leaning on Argon2 cost).",
-  "HTTP security response headers — HSTS, CSP, X-Frame-Options, Referrer-Policy — on the site and relay.",
+  "HTTP security response headers (HSTS, CSP, X-Frame-Options, Referrer-Policy) on the site and relay.",
   "Execution timeouts, output caps, and resource limits on the local native compilers (so a runaway lesson can't hang or starve the host); per-run randomized temp directories.",
   "Move stored AI API keys from the plaintext settings file into the OS keychain.",
   "A second-layer HTML sanitizer behind the Markdown renderer (today's XSS defense is correct but single-setting).",
@@ -174,7 +174,7 @@ export function SecurityAudit() {
           <p>
             This page is a summary, not a substitute for your own review.
             Everything that runs on your machine is open source. If you're
-            security-conscious — and you should be — clone the repository,
+            security-conscious (and you should be), clone the repository,
             read the code, and run the same checks we did before you trust
             it with anything. The{" "}
             <a href="#verify-yourself">verify-it-yourself</a> section below
@@ -245,7 +245,7 @@ export function SecurityAudit() {
       {/* Deep code audit — findings & remediation. */}
       <section className="security-section">
         <h2 className="security-section__title">
-          <Wrench size={18} aria-hidden /> Code audit — found &amp; fixed
+          <Wrench size={18} aria-hidden /> Code audit: found &amp; fixed
         </h2>
         <p className="security-section__lede">
           We didn't stop at <code>npm audit</code>. We ran a deep internal
@@ -253,8 +253,8 @@ export function SecurityAudit() {
           that runs code: sandbox escape, the native command surface,
           untrusted-content rendering, the AI agent, and auth / sync. It
           surfaced real issues. The High-severity ones were{" "}
-          <strong>fixed before this page was published</strong> — we won't
-          ship a working exploit for an open repo — and are disclosed here
+          <strong>fixed before this page was published</strong> (we won't
+          ship a working exploit for an open repo) and are disclosed here
           as resolved, by category. None was ever a zero-click remote risk
           to a passive user; each needed either a file you chose to import
           or a crafted link.
@@ -299,10 +299,11 @@ export function SecurityAudit() {
             <strong>Dependency advisories:</strong> <code>npm audit</code>{" "}
             reports 14 transitive advisories (8 low / 5 moderate / 1 high /
             0 critical). Every one is in the build chain (esbuild / vite /
-            vitest), the in-webview lesson sandbox (svelte / devalue — the
-            SSR vectors aren't reachable client-side), or crypto transitives
-            used only against throwaway lesson keypairs. They're patched as
-            upstream ships fixes and re-checked on every dependency bump.
+            vitest), the in-webview lesson sandbox (svelte / devalue, where
+            the SSR vectors aren't reachable client-side), or crypto
+            transitives used only against throwaway lesson keypairs. They're
+            patched as upstream ships fixes and re-checked on every dependency
+            bump.
           </div>
         </div>
       </section>
@@ -314,7 +315,7 @@ export function SecurityAudit() {
         </h2>
         <p className="security-section__lede">
           Every number on this page is reproducible in a few minutes. Don't
-          trust the summary — reproduce it.
+          trust the summary; reproduce it.
         </p>
         <pre className="security-code">
           <code>{`# 1. Get the source
@@ -329,7 +330,7 @@ npm audit
 #    exact compromised versions from any npm incident, e.g.
 grep -nE '"(chalk|debug|ua-parser-js|@solana/web3.js)"' package-lock.json
 
-# 4. Read the privilege surface — the entire allowlist the
+# 4. Read the privilege surface. The entire allowlist the
 #    webview is granted is in one short file
 cat src-tauri/capabilities/default.json
 
@@ -337,7 +338,7 @@ cat src-tauri/capabilities/default.json
 ls src/lib  &&  rg -n "fetch\\\\(|invoke\\\\(" src/`}</code>
         </pre>
         <p className="security-section__foot">
-          Found something? Responsible disclosure is appreciated — open a
+          Found something? Responsible disclosure is appreciated. Open a
           private security advisory on the{" "}
           <a
             href={`${REPO}/security/advisories/new`}

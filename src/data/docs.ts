@@ -29,7 +29,7 @@ toward a streak that doesn't reset for taking the weekend off.
 Libre Academy is a free desktop app, distributed for macOS, Linux, and
 Windows. It bundles a real code editor, native runtimes for every
 language, PDF / EPUB ingestion that turns books into courses, and an
-optional local Ollama tutor — and it all runs on your own machine,
+optional local Ollama tutor. And it all runs on your own machine,
 online or off.
 
 ## Who this is for
@@ -38,8 +38,8 @@ You're already comfortable with one programming language and want to
 pick up another, or you have a textbook on your shelf you've been
 meaning to actually finish. Passive video courses haven't worked for
 you. Random LeetCode problems feel disconnected from the books.
-Libre Academy is structured like a book — chapters, lessons, exercises —
-but every lesson can be run, tested, and graded in-place.
+Libre Academy is structured like a book, with chapters, lessons, and
+exercises, but every lesson can be run, tested, and graded in-place.
 
 ## What's in this docs site
 
@@ -49,7 +49,7 @@ Tauri internals, the ingest pipeline, and the runtime layer. Start
 here if you're brand new; jump there once you've installed.
 `;
 
-const desktop = `The desktop app gives you the full Libre Academy — every language
+const desktop = `The desktop app gives you the full Libre Academy: every language
 runtime, the ingest pipeline that turns books into courses, and the
 local AI tutor.
 
@@ -58,9 +58,9 @@ local AI tutor.
 Grab the latest build from [GitHub Releases](https://github.com/InfamousVague/Libre.academy/releases/latest).
 Pick the bundle for your OS:
 
-- **macOS** — \`.dmg\` (Apple Silicon + Intel universal)
-- **Windows** — \`.msi\`
-- **Linux** — \`.AppImage\` or \`.deb\`
+- **macOS**: \`.dmg\` (Apple Silicon + Intel universal)
+- **Windows**: \`.msi\`
+- **Linux**: \`.AppImage\` or \`.deb\`
 
 ## First launch
 
@@ -70,22 +70,22 @@ sidebar populates with the chapter tree.
 
 ## What's inside
 
-- **PDF / EPUB ingest** — drop any technical book in, get a
+- **PDF / EPUB ingest**: drop any technical book in, get a
   Claude-structured course out
-- **Docs-site crawler** — point at a documentation URL, generate a
+- **Docs-site crawler**: point at a documentation URL, generate a
   course from the structure
-- **Challenge pack generator** — synthesize 20-200 exercises in any
-  language with a slider for cost
-- **Native toolchain runners** — C, C++, Java, Kotlin, C#, Swift,
+- **Challenge pack generator**: synthesize 20-200 exercises in any
+  language, with a slider for cost
+- **Native toolchain runners**: C, C++, Java, Kotlin, C#, Swift,
   Assembly all execute via subprocess shells
-- **Local AI tutor** — Ollama-backed; the floating fish character
+- **Local AI tutor**: Ollama-backed, so the floating fish character
   knows your lesson context and never sends a token to anyone else's
   server
 
 ## Optional cloud sync
 
 Libre Academy offers a free, optional cloud sync to mirror your progress,
-XP, and streak across machines. It's off by default — you opt in via
+XP, and streak across machines. It's off by default, so you opt in via
 **Settings → Sign in**. The sync server stores only the small
 JSON-shaped progress record; lesson contents stay on disk.
 
@@ -118,28 +118,28 @@ comprehension between dense chapters. 10 XP.
 
 ## Mixed
 
-A reading lesson with an exercise tucked at the end — when the prose
+A reading lesson with an exercise tucked at the end, for when the prose
 and the practice are tightly coupled. 20 XP.
 
 ## Streaks + XP
 
 XP rolls up to levels via a triangular curve: \`level N\` requires
 \`N × (N + 1) / 2 × 10\` cumulative XP. Streaks are calendar-day
-counters with a one-day grace window — miss two days and the streak
-resets. Take the weekend off; pick up Monday; streak intact.
+counters with a one-day grace window, so miss two days and the streak
+resets. Take the weekend off, pick up Monday, and your streak's intact.
 
 The streak fire and XP bar live in the sidebar. They never gate
-content — every lesson is unlocked from the start.
+content: every lesson is unlocked from the start.
 `;
 
-const editor = `The editor is a real Monaco instance — the same engine that powers
+const editor = `The editor is a real Monaco instance, the same engine that powers
 VS Code. Every lesson with code gets:
 
 - **Syntax highlighting** that matches the active theme
 - **In-language IntelliSense** for the languages Monaco supports
   natively (JS, TS, Python, JSON, HTML, CSS)
 - **Per-language linting / type errors** where applicable
-- **Multi-file workbenches** — each file is a tab, and any file that
+- **Multi-file workbenches**: each file is a tab, and any file that
   matches the lesson's primary language gets concatenated for runs
 
 ## Running the code
@@ -164,7 +164,7 @@ Useful on multi-monitor setups: one screen for the prose, one for the
 code. Both windows stay synchronized as you type.
 `;
 
-const themes = `Libre Academy ships **15 themes**. The default is **Libre Dark** —
+const themes = `Libre Academy ships **15 themes**. The default is **Libre Dark**,
 a monochrome glass treatment we use across the desktop app and this
 site. The other 14 are faithful (or close-to) ports of popular VS
 Code themes:
@@ -174,7 +174,7 @@ Code themes:
   Dark, Claude Code Dark, Absent Contrast, Vesper, Word.
 
 Picking a theme repaints both the chrome AND Monaco's syntax
-highlighting — the editor never disagrees with the rest of the UI.
+highlighting, so the editor never disagrees with the rest of the UI.
 
 Switch via **Settings → Theme** in the desktop app. The browser
 variant uses the system preference for now (a per-tab toggle is on
@@ -186,25 +186,31 @@ const offline = `Libre Academy is **local-first**. By default:
 - Every course is a JSON file on disk (or in IndexedDB in the browser)
 - Progress, XP, and streak counters live in SQLite (desktop) /
   IndexedDB (browser)
-- The AI tutor runs against a **local Ollama** instance — zero tokens
-  billed, no cloud round-trip
-- There is **no telemetry**. No analytics, no error reporters, no
-  outbound calls beyond the playground proxies and an optional
-  cloud-sync toggle
+- The AI tutor runs against a **local Ollama** instance, so zero tokens
+  get billed and there's no cloud round-trip
+- **Anonymous, cookieless product analytics** (self-hosted, first-party
+  Plausible) help us improve the apps. No personal data, no cross-site
+  tracking, no error reporters, and you can turn it off anytime under
+  **Settings → Data & storage**. Beyond that and the optional cloud-sync
+  toggle, there are no outbound calls except the playground proxies
 
 ## What does talk to a server?
 
-A small set of **opt-in** things:
+A small, well-defined set of things:
 
 - **The Anthropic backend** for the AI tutor, if you flip it on under
   Settings (the local Ollama path stays default)
-- **Cloud sync**, if you sign in — small JSON progress records,
+- **Cloud sync**, if you sign in. Small JSON progress records,
   nothing else
 - **The Rust + Go playgrounds** at play.rust-lang.org and
   play.golang.org, since neither toolchain ships with Libre Academy
+- **Product analytics** (self-hosted, first-party Plausible). On by
+  default, but anonymous and cookieless, with no personal data and no
+  cross-site tracking. Turn it off anytime under Settings → Data &
+  storage
 
-Everything else — including PDF ingest, lesson rendering, code
-execution for the in-browser languages — runs entirely on your
+Everything else, including PDF ingest, lesson rendering, and code
+execution for the in-browser languages, runs entirely on your
 machine.
 `;
 

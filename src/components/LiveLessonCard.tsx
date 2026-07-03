@@ -120,8 +120,9 @@ export function LiveLessonCard() {
         <p className="live-card__prose">
           The <code>greeting()</code> function's only job is to return the text
           your program prints. Fill in its body so it returns the string literal{" "}
-          <code>"Hello, world!"</code>, then hit <b>Run</b>. A Rust function
-          whose last line is a value — no semicolon — returns that value.
+          <code>"Hello, world!"</code>, then hit <b>Run</b>. Here's the trick: a
+          Rust function whose last line is a value, with no semicolon, returns
+          that value.
         </p>
         <p className="live-card__note">
           The hidden test checks that <code>greeting()</code> returns exactly
@@ -201,7 +202,7 @@ export function LiveLessonCard() {
                 </pre>
               ) : (
                 <p className="live-card__placeholder">
-                  Run your code — program output appears here.
+                  Run your code and its output shows up here.
                 </p>
               )
             ) : result ? (
@@ -220,7 +221,7 @@ export function LiveLessonCard() {
               </ul>
             ) : (
               <p className="live-card__placeholder">
-                Hit Run — hidden tests grade your code here.
+                Hit Run and the hidden tests grade your code here.
               </p>
             )}
           </div>

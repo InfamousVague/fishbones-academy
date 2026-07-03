@@ -68,14 +68,14 @@ function PreSource() {
   return (
     <pre className="hero-term__pre">
       <Line n={1}>
-        <Tk c="comment">{"// Chapter 4 — The Closure"}</Tk>
+        <Tk c="comment">{"// Chapter 4: The Closure"}</Tk>
       </Line>
       <Line n={2}>{""}</Line>
       <Line n={3}>
         A <Tk c="kw">closure</Tk> is the bundle of a function and the
       </Line>
       <Line n={4}>
-        scope it captured. Think of it as a function with luggage —
+        scope it captured. Think of it as a function with luggage:
       </Line>
       <Line n={5}>
         wherever you take it, the variables it remembered come along.

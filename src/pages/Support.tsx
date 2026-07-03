@@ -14,7 +14,7 @@ import "./Support.css";
 
 export function Support() {
   useSeo({
-    title: "Support Libre Academy — Donate to a Free, Open-Source Project",
+    title: "Support Libre Academy: Donate to a Free, Open-Source Project",
     description: "Libre Academy is free forever. If it's been useful, consider a crypto tip to help keep the servers and development running.",
     canonicalUrl: "https://libre.academy/support",
   });
@@ -27,9 +27,9 @@ export function Support() {
             Keep free coding courses free.
           </h1>
           <p className="support-hero__lede">
-            Libre Academy — the desktop app, the browser version, the cloud
-            sync server, this site — is MIT licensed and built without a
-            budget. If a course or chapter helped you, a few sats or a
+            Everything in Libre Academy (the desktop app, the browser version,
+            the cloud sync server, this site) is MIT licensed and built without
+            a budget. If a course or chapter helped you, a few sats or a
             fraction of an ETH keeps the next one shipping.
           </p>
           <div className="support-hero__meta">
@@ -51,7 +51,7 @@ export function Support() {
       <section className="section support-section">
         <CryptoSupport />
         <p className="support-footnote">
-          Send only the listed asset on the listed network — sending wrong-chain
+          Send only the listed asset on the listed network. Sending wrong-chain
           tokens (e.g. BTC to an ETH address) will lose them permanently. Each
           QR encodes the full address; scan with your wallet to verify before
           sending.

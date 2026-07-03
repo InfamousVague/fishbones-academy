@@ -8,10 +8,10 @@ export function Footer() {
       <div className="site-footer__inner">
         <div className="site-footer__brand">
           <Link to="/" className="site-footer__brand-link">
-            {/* Single-glyph "Libre.academy" wordmark — same asset
-                + lockup as the top nav. */}
+            {/* The "LIBRE.ACADEMY" wordmark — the exact same asset the
+                top nav bar uses (public/logos/nav-logo.png). */}
             <img
-              src="/libreacademy.png?v=1"
+              src="/logos/nav-logo.png"
               alt="Libre.academy"
               className="site-footer__brand-icon"
             />

@@ -20,7 +20,7 @@ export function Docs() {
   const active: DocPage | undefined = pageParam ? findDocPage(pageParam) : fallback;
 
   useSeo({
-    title: active ? `${active.title} — Libre Academy Docs` : "Documentation — Libre Academy",
+    title: active ? `${active.title} | Libre Academy Docs` : "Documentation | Libre Academy",
     canonicalUrl: active ? `https://libre.academy/docs/${active.id}` : "https://libre.academy/docs",
   });
 
@@ -145,7 +145,7 @@ export function Docs() {
                 >
                   in-app docs <ArrowRight size={11} />
                 </a>{" "}
-                — Tauri internals, ingest pipeline, runtime layer.
+                covering Tauri internals, the ingest pipeline, and the runtime layer.
               </p>
             </article>
           )}

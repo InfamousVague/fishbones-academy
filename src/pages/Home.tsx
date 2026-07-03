@@ -22,14 +22,17 @@ import { LogoHero } from "../components/LogoHero";
 import { ParallaxBg } from "../components/ParallaxBg";
 import { ScrollAsset } from "../components/ScrollAsset";
 import { ScreenshotCarousel } from "../components/ScreenshotCarousel";
+import { MobileShowcase } from "../components/MobileShowcase";
 import { LiveLessonCard } from "../components/LiveLessonCard";
+import { MultilingualSection } from "../components/MultilingualSection";
+import { EarlyAccess } from "../components/EarlyAccess";
 import "./Home.css";
 
 /// App screenshots for the homepage carousel.
 const APP_SHOTS = [
   {
     src: "/screenshots/app-library.png",
-    alt: "The Libre Academy desktop app library — Rust, Python and Go course collections with a Python course in progress.",
+    alt: "The Libre Academy desktop app library, with Rust, Python and Go course collections and a Python course in progress.",
   },
   {
     src: "/screenshots/app-paths.png",
@@ -41,7 +44,7 @@ const APP_SHOTS = [
   },
   {
     src: "/screenshots/app-editor.png",
-    alt: "The in-app code editor running a Rust exercise, graded instantly by hidden tests — write real code, not multiple-choice.",
+    alt: "The in-app code editor running a Rust exercise, graded instantly by hidden tests. You write real code, not multiple-choice.",
   },
   {
     src: "/screenshots/app-lesson.png",
@@ -49,11 +52,11 @@ const APP_SHOTS = [
   },
   {
     src: "/screenshots/app-challenges.png",
-    alt: "The Challenges view — Exercism tracks, rustlings-style drill packs and koans across 26 languages.",
+    alt: "The Challenges view, with Exercism tracks, rustlings-style drill packs and koans across 26 languages.",
   },
   {
     src: "/screenshots/app-themes.png",
-    alt: "The theme picker — Libre's halftone-tinted themes applied live across the whole app.",
+    alt: "The theme picker, with Libre's halftone-tinted themes applied live across the whole app.",
   },
 ];
 
@@ -95,7 +98,7 @@ const FEATURES = [
     icon: BookOpen,
     title: "Interactive lessons",
     body:
-      "Read short prose chunks with syntax-highlighted snippets, inline glossary popovers, and a 'You'll learn' card up front so you know what's coming. Every lesson ends in a hands-on exercise — no passive video watching.",
+      "Read short prose chunks with syntax-highlighted snippets, inline glossary popovers, and a 'You'll learn' card up front so you always know what's coming. Every lesson ends in a hands-on exercise, so you're writing code instead of watching a video.",
   },
   {
     icon: Code2,
@@ -107,13 +110,13 @@ const FEATURES = [
     icon: Layers,
     title: "Hidden-test grading",
     body:
-      `Hundreds of curated coding exercises across ${LANGUAGE_COUNT} languages, each with hidden tests that pass-or-fail your work the same way a real interview screen does. Difficulty tags, topic groups, instant feedback.`,
+      `Hundreds of curated coding exercises across ${LANGUAGE_COUNT} languages, each with hidden tests that pass or fail your work the same way a real interview screen does. You get difficulty tags, topic groups, and instant feedback.`,
   },
   {
     icon: Cpu,
     title: "Free AI tutor",
     body:
-      "A floating tutor reads the lesson, your code, and the hidden tests so it can answer in context. Defaults to a local Ollama model — no API keys, no usage bills, no signup wall.",
+      "A floating tutor reads the lesson, your code, and the hidden tests so it can answer in context. It defaults to a local Ollama model, so there are no API keys, no usage bills, and no signup wall.",
   },
 ];
 
@@ -122,23 +125,23 @@ const FEATURE_ROWS = [
     eyebrow: "Every language, one app",
     title: "Twenty-six programming languages. Only one Kaiju.",
     body:
-      "JavaScript, TypeScript and Python run in-browser via Web Workers and Pyodide. Solidity compiles with solc-js and executes on an in-process EVM. Rust and Go proxy to the official playgrounds. C, C++, Java, Kotlin, C#, Swift, Zig and Assembly run on your local toolchain through the optional desktop app — and if a compiler is missing, Libre Academy offers a one-click install.",
+      "JavaScript, TypeScript and Python run in-browser via Web Workers and Pyodide. Solidity compiles with solc-js and executes on an in-process EVM. Rust and Go proxy to the official playgrounds. C, C++, Java, Kotlin, C#, Swift, Zig and Assembly run on your local toolchain through the optional desktop app. If a compiler is missing, Libre Academy sets it up for you with a one-click install.",
     bullets: [
-      "JavaScript, TypeScript, Python — Web Workers + Pyodide",
-      "Solidity + EVM smart contracts — full in-browser chain",
-      "React, Three.js, Svelte, Astro, Solid, HTMX — sandboxed iframes",
-      "Rust, Go, C, C++, Java, Kotlin, C#, Swift, Zig, Assembly — desktop",
+      "JavaScript, TypeScript, Python: Web Workers + Pyodide",
+      "Solidity + EVM smart contracts: full in-browser chain",
+      "React, Three.js, Svelte, Astro, Solid, HTMX: sandboxed iframes",
+      "Rust, Go, C, C++, Java, Kotlin, C#, Swift, Zig, Assembly: desktop",
     ],
   },
   {
     eyebrow: "Free + open source",
     title: "No paywall. No signup wall. No data harvesting.",
     body:
-      "Libre Academy is free forever — MIT licensed, no premium tier, no upsell. Progress lives in a local SQLite database on your machine. The AI tutor defaults to a local Ollama model so your conversations stay on your machine. No analytics, no error reporters, no tracking pixels. Sign up only if you want to sync XP between devices — and even then, all we store is a tiny JSON progress record.",
+      "Libre Academy is free forever. It's MIT licensed, with no premium tier and no upsell. Your progress lives in a local SQLite database on your own machine, and the AI tutor defaults to a local Ollama model so your conversations stay with you too. Product analytics are anonymous, cookieless (Plausible), and you can turn them off anytime in settings. There's no personal data and no cross-site tracking. Sign up only if you want to sync XP between devices, and even then, all we store is a tiny JSON progress record.",
     bullets: [
-      "Free forever — MIT licensed source on GitHub",
-      "No account required to learn — sample any course in 30 seconds",
-      "Optional cloud sync — just XP + completion timestamps",
+      "Free forever, with MIT licensed source on GitHub",
+      "No account required to learn: sample any course in 30 seconds",
+      "Optional cloud sync: just XP + completion timestamps",
       "AI tutor defaults to local Ollama, never a third-party API",
     ],
   },
@@ -222,6 +225,18 @@ export function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* ─── Early-access email capture (near the top) ─────── */}
+      <motion.section
+        className="section section--narrow early-section"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+      >
+        <EarlyAccess />
+      </motion.section>
+
       {/* ─── Book carousel ───────────────────────────────── */}
       <BookCarousel />
 
@@ -245,6 +260,11 @@ export function Home() {
         <ScreenshotCarousel images={APP_SHOTS} />
       </motion.section>
 
+      {/* ─── Mobile showcase — the same app in a phone browser (PWA),
+          framed in CSS device mockups. Sits right under the desktop
+          shot so the page reads "desktop app… and in your pocket." ─── */}
+      <MobileShowcase />
+
       {/* ─── Live lesson — a real Rust basics exercise, playable inline ─── */}
       <motion.section
         className="section live-lesson"
@@ -259,9 +279,9 @@ export function Home() {
             A real lesson, right here.
           </h2>
           <p className="section__subtitle section__subtitle--centered">
-            An actual exercise from <i>The Rust Programming Language</i> — read
+            An actual exercise from <i>The Rust Programming Language</i>. Read
             it, write the code, run it, and watch the hidden tests grade your
-            work. The same loop the app runs for {COURSE_COUNT_ROUNDED} courses.
+            work. It's the same loop the app runs for {COURSE_COUNT_ROUNDED} courses.
           </p>
         </div>
         <LiveLessonCard />
@@ -389,6 +409,17 @@ export function Home() {
         );
       })}
 
+      {/* ─── Multilingual — every course, in your spoken language ─── */}
+      <motion.section
+        className="section multiling-section"
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <MultilingualSection />
+      </motion.section>
+
       {/* ─── Comparisons (moved to the bottom) ───────────────
           The marquee Codecademy table + the Treehouse / DataCamp
           mini-comparisons. Kept on a solid-black stretch near the
@@ -408,11 +439,11 @@ export function Home() {
           scale={[0.95, 1.12]}
         />
         <h2 className="section__title section__title--centered">
-          Download Libre Academy — free til' the heat death of the universe.
+          Download Libre Academy, free til' the heat death of the universe.
         </h2>
         <p className="section__subtitle section__subtitle--centered">
-          Twenty-six languages, {COURSE_COUNT_ROUNDED} courses, fifteen-hundred-plus
-          interactive lessons — all in one free, open-source app. No signup, no
+          Twenty-six languages, {COURSE_COUNT_ROUNDED} courses, and fifteen-hundred-plus
+          interactive lessons, all in one free, open-source app. No signup, no
           credit card. Install it and start writing code.
         </p>
         <div className="home-final__actions">
@@ -492,7 +523,7 @@ function PipelineBoard() {
 
 function PrincipleBoard() {
   const items = [
-    { icon: ShieldOff, label: "Zero telemetry", value: "0 events" },
+    { icon: ShieldOff, label: "Analytics", value: "Anonymous · opt-out" },
     { icon: Flame, label: "Streaks", value: "1-day grace" },
     { icon: Cpu, label: "AI tutor", value: "Local Ollama" },
     { icon: BookOpen, label: "Source", value: "MIT licensed" },

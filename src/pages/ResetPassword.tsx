@@ -92,9 +92,9 @@ function scorePassword(value: string): PasswordScore {
         score,
         label: "Weak",
         hint: isCommon
-          ? "common password — pick something less guessable"
+          ? "that's a common one, pick something less guessable"
           : isLazy
-            ? "looks lazy — try a passphrase or random characters"
+            ? "looks a bit lazy, try a passphrase or random characters"
             : "add length, mix cases, digits, symbols",
         belowMinLength: false,
       };
@@ -280,8 +280,7 @@ export function ResetPassword() {
           <>
             <p className="reset-card__blurb reset-card__blurb--success">
               Password updated. Open the Libre desktop app and sign in with
-              your new password — or download it below if you don't have it
-              yet.
+              your new password. Don't have it yet? Grab it below.
             </p>
             <Link to="/download" className="reset-card__cta">
               Download the app

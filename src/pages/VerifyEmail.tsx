@@ -83,9 +83,9 @@ export function VerifyEmail() {
         ) : phase === "success" ? (
           <>
             <p className="reset-card__blurb reset-card__blurb--success">
-              Your email is confirmed and your account is active. Open the Libre
-              desktop app and sign in to sync your progress — or download it
-              below if you don't have it yet.
+              You're confirmed and your account is active. Open the Libre
+              desktop app and sign in to sync your progress. Don't have it
+              yet? Grab it below.
             </p>
             <Link to="/download" className="reset-card__cta">
               Download the app

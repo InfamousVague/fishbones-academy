@@ -305,7 +305,7 @@ async function fetchXrp(addr: string): Promise<TipEvent[]> {
 // ────────────────────── Display helpers ──────────────────────
 
 function shortenHash(s: string, head = 6, tail = 4): string {
-  if (!s) return "—";
+  if (!s) return "unknown";
   if (s.length <= head + tail + 1) return s;
   return `${s.slice(0, head)}…${s.slice(-tail)}`;
 }
@@ -454,7 +454,7 @@ export function TipActivity({ limit = 20 }: TipActivityProps) {
             {loading
               ? "Loading recent transactions across every address…"
               : totalEvents === 0
-                ? "No tips yet across any chain. Be the first."
+                ? "No tips yet across any chain. Want to be the first?"
                 : `Showing ${totalEvents} recent transaction${totalEvents === 1 ? "" : "s"} across ${methods.length} addresses.`}
           </p>
         </div>
@@ -494,8 +494,9 @@ export function TipActivity({ limit = 20 }: TipActivityProps) {
       ) : totalEvents === 0 ? (
         <div className="tip-activity__empty">
           <p>
-            Nothing to show yet — once a tip lands at any of the addresses
-            above, it’ll show here within a few seconds of confirming.
+            Nothing to show yet. As soon as a tip lands at any of the
+            addresses above, it’ll show up here within a few seconds of
+            confirming.
           </p>
         </div>
       ) : (

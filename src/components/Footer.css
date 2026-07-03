@@ -24,9 +24,8 @@
   text-decoration: none;
 }
 .site-footer__brand-icon {
-  /* Single-glyph "Libre.academy" wordmark — height pinned at 32px
-     (bumped 15% from the previous 28px to match the nav scale-up).
-     Width auto-flows the natural ~2.85:1 ratio. */
+  /* "LIBRE.ACADEMY" wordmark (shared with the nav) — height pinned at
+     32px; width auto-flows its natural ~2.35:1 ratio. */
   height: 32px;
   width: auto;
   display: block;

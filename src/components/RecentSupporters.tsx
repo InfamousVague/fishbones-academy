@@ -53,7 +53,7 @@ export function RecentSupporters({ limit = 8 }: RecentSupportersProps) {
           {loading
             ? "Pulling the last few tips off-chain…"
             : supporters.length === 0
-              ? "No supporters yet — the spot is open."
+              ? "No supporters yet. The spot is wide open."
               : `${supporters.length} ${
                   supporters.length === 1 ? "person has" : "people have"
                 } chipped in recently.`}
@@ -81,7 +81,7 @@ export function RecentSupporters({ limit = 8 }: RecentSupportersProps) {
           </p>
           {errors.length > 0 && (
             <p className="recent-supporters__empty-note">
-              (Some chain explorers were unreachable —
+              (We couldn’t reach a few chain explorers:
               {" "}
               {errors.map((e) => CHAIN_LABEL[e.chain]).join(", ")}
               .)

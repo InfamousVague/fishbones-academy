@@ -1,0 +1,151 @@
+/* ─── Mobile showcase ─────────────────────────────────────
+   A row of CSS phone mockups framing real app screenshots. The
+   bezel, dynamic-island pill and screen rounding are all pure CSS so
+   the only assets are the screenshots themselves. Matches the
+   `.app-shot` desktop showcase's centered head + token palette. */
+
+.mobshow {
+  text-align: center;
+}
+
+.mobshow__head {
+  max-width: 720px;
+  margin: 0 auto 44px;
+}
+
+.mobshow__head .section__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Stage — the phones. Wide screens: a centered, gently fanned row.
+   Narrow screens: a horizontal scroll-snap carousel (see media query). */
+.mobshow__stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(16px, 3vw, 40px);
+  flex-wrap: nowrap;
+}
+
+.mobshow__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+}
+
+/* Gentle vertical fan so the row reads as a set, not a filmstrip.
+   The outer phones drop a touch; the featured one lifts. */
+.mobshow__item:nth-child(1),
+.mobshow__item:nth-child(4) {
+  transform: translateY(14px);
+}
+
+.mobshow__item--featured {
+  transform: translateY(-10px);
+}
+
+/* ── The device ── */
+.mobshow__phone {
+  position: relative;
+  width: clamp(158px, 15.5vw, 208px);
+  aspect-ratio: 780 / 1688;
+  padding: 8px;
+  border-radius: 34px;
+  background: linear-gradient(160deg, #1c1c20, #0b0b0d 60%);
+  border: 1px solid var(--color-border-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.5),
+    0 24px 60px rgba(0, 0, 0, 0.55);
+}
+
+/* The featured phone gets a warm accent ring + a stronger lift so the
+   "real code blocks" shot is the eye's first stop. */
+.mobshow__item--featured .mobshow__phone {
+  border-color: color-mix(in srgb, var(--color-accent-warm) 55%, var(--color-border-strong));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px color-mix(in srgb, var(--color-accent-warm) 30%, transparent),
+    0 28px 70px color-mix(in srgb, var(--color-accent-warm) 18%, rgba(0, 0, 0, 0.6));
+}
+
+/* Dynamic-island pill floating over the top of the screen. */
+.mobshow__island {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: #000;
+  z-index: 2;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.mobshow__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 27px;
+  overflow: hidden;
+  background: var(--color-bg-primary);
+}
+
+.mobshow__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.mobshow__caption {
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-text-secondary);
+}
+
+.mobshow__item--featured .mobshow__caption {
+  color: var(--color-accent-warm);
+}
+
+/* ─── Responsive ───────────────────────────────────────────
+   Below the point where four fanned phones get cramped, drop the fan
+   and turn the stage into a swipeable, scroll-snapping carousel — a
+   fitting interaction for the "on your phone" section itself. */
+@media (max-width: 860px) {
+  .mobshow__stage {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 8px 4px 20px;
+    /* let the carousel bleed to the section edges for a phone-native feel */
+    margin-inline: calc(-1 * var(--space-gutter, 20px));
+    padding-inline: var(--space-gutter, 20px);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .mobshow__stage::-webkit-scrollbar {
+    display: none;
+  }
+  /* Flatten the fan so snapped phones sit on a common baseline. */
+  .mobshow__item,
+  .mobshow__item--featured,
+  .mobshow__item:nth-child(1),
+  .mobshow__item:nth-child(4) {
+    transform: none;
+    scroll-snap-align: center;
+  }
+  .mobshow__phone {
+    width: min(62vw, 240px);
+  }
+}

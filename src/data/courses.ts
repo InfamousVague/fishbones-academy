@@ -110,17 +110,17 @@ export const RELEASE_SECTION_ORDER: ReadonlyArray<{
   {
     status: "BETA",
     label: "Beta",
-    blurb: "Polished and in final testing — feedback welcome.",
+    blurb: "Polished and in final testing. Your feedback is welcome.",
   },
   {
     status: "ALPHA",
     label: "Alpha",
-    blurb: "In the collection — content stable, polishing in progress.",
+    blurb: "In the collection. The content's stable and we're still polishing.",
   },
   {
     status: "UNREVIEWED",
     label: "Unreviewed",
-    blurb: "Early drafts — content still expanding.",
+    blurb: "Early drafts, still growing.",
   },
 ];
 

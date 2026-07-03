@@ -52,7 +52,7 @@ export const SMART_CONTRACTS: SkillTree = {
   audience: "specialty",
   accent: "#ffba66",
   description:
-    "EVM mental model up through DeFi primitives — AMMs, flash loans, governance, proxies. Pulls from Mastering Ethereum + the Solidity Complete deep dive.",
+    "EVM mental model up through DeFi primitives: AMMs, flash loans, governance, proxies. Pulls from Mastering Ethereum + the Solidity Complete deep dive.",
   nodes: [
     {
       id: "evm-mental-model",

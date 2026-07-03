@@ -14,7 +14,7 @@ const POINTS = [
   {
     title: "Random LeetCode is disconnected from the books.",
     body:
-      "Algorithm puzzles are useful, but they assume you already know the language. The middle ground — a textbook chapter, then an exercise that uses what the chapter just taught — is where almost no platform lives.",
+      "Algorithm puzzles are useful, but they assume you already know the language. Almost no platform lives in the middle ground, where you read a textbook chapter and then do an exercise that uses what the chapter just taught you.",
   },
   {
     title: "AI without structure is a chatbot, not a curriculum.",
@@ -24,7 +24,7 @@ const POINTS = [
   {
     title: "Cloud-only learning platforms break the moment you go offline.",
     body:
-      "Get on a flight. Open the app. Watch the spinner. Local-first isn't a stunt — it's how a tool that's supposed to teach you should actually behave.",
+      "Get on a flight. Open the app. Watch the spinner. Local-first isn't a stunt. It's how a tool that's supposed to teach you should actually behave.",
   },
 ];
 
@@ -42,7 +42,7 @@ const PRINCIPLES = [
   {
     title: "Bring your own books.",
     body:
-      "The desktop app's ingest pipeline turns PDFs, EPUBs, and docs sites into structured courses with hidden tests. Re-share the result as a portable .academy archive — anyone with Libre can install it in one click.",
+      "The desktop app's ingest pipeline turns PDFs, EPUBs, and docs sites into structured courses with hidden tests. Re-share the result as a portable .academy archive, and anyone with Libre can install it in one click.",
   },
   {
     title: "Open source by default.",
@@ -53,8 +53,8 @@ const PRINCIPLES = [
 
 export function About() {
   useSeo({
-    title: "About Libre Academy — Free Open-Source Interactive Coding Platform",
-    description: `Libre Academy is a free, open-source platform for learning to code. No signup, no paywall, no tracking. ${LANGUAGE_COUNT} languages, real editor, hidden tests.`,
+    title: "About Libre Academy: Free Open-Source Interactive Coding Platform",
+    description: `Libre Academy is a free, open-source platform for learning to code. No signup, no paywall, no cross-site tracking: just anonymous, cookieless analytics you can turn off. ${LANGUAGE_COUNT} languages, real editor, hidden tests.`,
     canonicalUrl: "https://libre.academy/about",
   });
   return (
@@ -63,13 +63,13 @@ export function About() {
         <div className="about-hero__inner">
           <span className="section__eyebrow">About Libre Academy</span>
           <h1 className="section__title">
-            Free, interactive coding courses — built for people who actually
+            Free, interactive coding courses, built for people who actually
             finish chapters.
           </h1>
           <p className="about-hero__lede">
             Libre Academy is an open source platform for learning to code
             online. We started it because we kept failing to finish technical
-            books — reading without doing didn't stick, doing without a
+            books. Reading without doing didn't stick, doing without a
             curriculum didn't ladder, and the platforms that promised both
             wanted our email address and our credit card and our weekends.
             So we built one that doesn't.

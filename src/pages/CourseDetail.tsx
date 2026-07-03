@@ -236,7 +236,7 @@ export function CourseDetail() {
               ? course.description
               : catalogEntry.packType === "challenges"
                 ? `A curated set of ${catalogEntry.languageLabel} kata problems with hidden tests grading each one. Difficulty tiers from easy to hard, organised by topic.`
-                : `A linear ${catalogEntry.languageLabel} course with reading lessons, hands-on exercises, and quizzes — every lesson runnable in the free desktop app.`}
+                : `A linear ${catalogEntry.languageLabel} course with reading lessons, hands-on exercises, and quizzes. Every lesson runs in the free desktop app.`}
           </p>
           <div className="course-detail__hero-actions">
             {/* Open-in-app CTA. Promoted to primary when we've seen
@@ -283,9 +283,9 @@ export function CourseDetail() {
           </div>
           <div className="course-detail__stats">
             <Stat label="Lessons" value={lessonCount.toString()} />
-            <Stat label="Exercises" value={(exerciseCount || "—").toString()} />
-            <Stat label="Reading" value={(readingCount || "—").toString()} />
-            <Stat label="Quizzes" value={(quizCount || "—").toString()} />
+            <Stat label="Exercises" value={(exerciseCount || "·").toString()} />
+            <Stat label="Reading" value={(readingCount || "·").toString()} />
+            <Stat label="Quizzes" value={(quizCount || "·").toString()} />
             <Stat
               label="Est. time"
               value={`${Math.round(catalogEntry.approxMinutes / 60)}h`}
@@ -361,8 +361,8 @@ export function CourseDetail() {
             <div className="course-detail__sidebar-card">
               <h3 className="course-detail__sidebar-title">Get this course</h3>
               <p className="course-detail__sidebar-body">
-                Install the free desktop app to take this course with native
-                runtimes, the local AI tutor and full offline access.
+                Grab the free desktop app and you'll get this course with native
+                runtimes, a local AI tutor, and full offline access.
               </p>
               <Link
                 to="/download"
@@ -389,7 +389,7 @@ export function CourseDetail() {
                   ? `Comfort with another language plus a working knowledge of ${catalogEntry.languageLabel}. Each lesson assumes you can read code without hand-holding.`
                   : catalogEntry.difficulty === "medium"
                     ? `Comfort with at least one programming language. ${catalogEntry.languageLabel}-specific syntax is taught from scratch.`
-                    : `None — every concept is introduced when it's first used. Some prior coding experience helps but isn't required.`}
+                    : `None. Every concept is introduced when it's first used, so some prior coding experience helps but isn't required.`}
               </p>
             </div>
 
@@ -553,8 +553,8 @@ function deriveObjectives(course: FullCourse): string[] {
 function objectivePlaceholders(language: string): string[] {
   return [
     `Pick up ${language} fundamentals through hands-on, gradeable lessons.`,
-    "Run real code in a real editor — Monaco + hidden tests.",
-    "Earn XP on every pass, build a streak you don't lose to weekends.",
-    "Take what you learn into your own projects on the same machine.",
+    "Write real code in a real editor: Monaco plus hidden tests.",
+    "Earn XP on every pass, and build a streak you won't lose to weekends.",
+    "Take what you learn straight into your own projects on the same machine.",
   ];
 }

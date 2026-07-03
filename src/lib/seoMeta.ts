@@ -84,15 +84,15 @@ function courseKind(topic: string): string {
 export function courseSeoTitle(c: CourseSeoInfo): string {
   return (
     COURSE_OVERRIDES[c.id]?.title ??
-    `${c.title} — free ${c.languageLabel} ${courseKind(c.topic)} | Libre Academy`
+    `${c.title}: free ${c.languageLabel} ${courseKind(c.topic)} | Libre Academy`
   );
 }
 
 export function courseSeoDescription(c: CourseSeoInfo): string {
   return (
     COURSE_OVERRIDES[c.id]?.description ??
-    `Learn ${c.languageLabel} for free with ${c.title} on Libre Academy — ` +
-      `${c.approxLessons} interactive, test-graded lessons. No paywall, no sign-up.`
+    `Learn ${c.languageLabel} for free with ${c.title} on Libre Academy. ` +
+      `${c.approxLessons} interactive, test-graded lessons you actually enjoy. No paywall, no sign-up.`
   );
 }
 
@@ -109,7 +109,7 @@ export function courseCanonical(id: string): string {
 export function languageSeoTitle(l: LanguageSeoInfo): string {
   return (
     LANGUAGE_OVERRIDES[l.id]?.title ??
-    `Learn ${l.name} free online — interactive courses | Libre Academy`
+    `Learn ${l.name} free online with interactive courses | Libre Academy`
   );
 }
 
@@ -122,11 +122,11 @@ export function languageSeoDescription(
   }
   const coursePart =
     courseCount > 0
-      ? ` — ${courseCount} free ${l.name} course${courseCount > 1 ? "s" : ""}`
+      ? `, with ${courseCount} free ${l.name} course${courseCount > 1 ? "s" : ""}`
       : "";
   return (
     `Learn ${l.name} for free on Libre Academy${coursePart}. ` +
-    `${l.blurb} Real code editor, hidden tests, no paywall, no sign-up.`
+    `${l.blurb} You get a real code editor, hidden tests, no paywall, and no sign-up.`
   );
 }
 

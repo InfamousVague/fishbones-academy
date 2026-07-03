@@ -108,10 +108,10 @@ export function LanguageDetail() {
   // does the code actually run?" without scrolling further.
   const howItRuns =
     lang.run === "browser"
-      ? `${lang.name} lessons run entirely inside your browser tab — no install, no toolchain, no network round-trip to grade your code. The editor is the same Monaco engine that powers VS Code, and the hidden tests run in a sandboxed Web Worker.`
+      ? `${lang.name} lessons run entirely inside your browser tab. No install, no toolchain, no network round-trip to grade your code. The editor is the same Monaco engine that powers VS Code, and the hidden tests run in a sandboxed Web Worker.`
       : lang.run === "sandbox"
-        ? `${lang.name} compiles via a public sandbox (${lang.runNote?.replace(/[()]/g, "") || "official upstream playground"}) — you write code in the in-browser editor, hit Run, and the compiled output and test results come back in seconds. No local toolchain required.`
-        : `${lang.name} needs a real toolchain on your machine, so the in-browser path runs against a small native shim or you can install the Libre desktop app for the full experience. The desktop app is MIT-licensed and works fully offline.`;
+        ? `${lang.name} compiles via a public sandbox (${lang.runNote?.replace(/[()]/g, "") || "official upstream playground"}). You write code in the in-browser editor, hit Run, and the compiled output and test results come back in seconds. No local toolchain required.`
+        : `${lang.name} needs a real toolchain on your machine, so the in-browser path runs against a small native shim, or you can install the Libre desktop app for the full experience. The desktop app is MIT-licensed and works fully offline.`;
 
   return (
     <div className="lang-detail">
@@ -134,7 +134,7 @@ export function LanguageDetail() {
           </h1>
           <p className="lang-detail__lede">
             {lang.blurb} {courses.length > 0
-              ? `${courses.length} ${courses.length === 1 ? "course" : "courses"} on Libre Academy — open source, no signup, no paywall.`
+              ? `${courses.length} ${courses.length === 1 ? "course" : "courses"} on Libre Academy, all open source, no signup, no paywall.`
               : "Open source, no signup, no paywall."}
           </p>
           <div className="lang-detail__actions">
@@ -173,9 +173,9 @@ export function LanguageDetail() {
             </h2>
             <p className="lang-detail__how-body">
               Every lesson is hand-crafted prose followed by a real coding
-              exercise — hidden tests grade your work the moment you hit Run.
-              No signup wall, no email collected, no upsell prompts. The
-              entire course catalog and the desktop app are MIT-licensed; if
+              exercise, and hidden tests grade your work the moment you hit
+              Run. No signup wall, no email collected, no upsell prompts. The
+              entire course catalog and the desktop app are MIT-licensed, so if
               you don't like a lesson, fork it.
             </p>
           </div>

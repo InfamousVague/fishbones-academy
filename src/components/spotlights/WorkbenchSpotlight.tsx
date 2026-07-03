@@ -163,7 +163,7 @@ export function WorkbenchSpotlight() {
           <ul className="ws-spotlight__bullets">
             <li><span className="ws-spotlight__dot" /> Solidity compiles via solc-js, deploys to in-process EVM</li>
             <li><span className="ws-spotlight__dot" /> Hidden tests run against your actual bytecode</li>
-            <li><span className="ws-spotlight__dot" /> Every pass / fail surfaces inline, no console-spelunking</li>
+            <li><span className="ws-spotlight__dot" /> Every pass / fail shows up right inline, no console-spelunking</li>
           </ul>
           <a href="/download" className="ws-spotlight__cta">
             Get the desktop app

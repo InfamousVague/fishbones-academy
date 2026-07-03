@@ -130,17 +130,17 @@ export function EvmChainSpotlight() {
             A real Ethereum chain. <em>Inside the lesson.</em>
           </h2>
           <p className="evm-spotlight__lede">
-            Every Solidity lesson runs against an in-process EVM —
-            the same <code>@ethereumjs/vm</code> + <code>viem</code> stack
+            Every Solidity lesson runs against an in-process EVM. It's the
+            same <code>@ethereumjs/vm</code> + <code>viem</code> stack
             production teams use, with snapshots, time-travel, faucets,
-            and a 10-account dev set pre-funded for you. Deploy, call,
+            and a 10-account dev set pre-funded and ready for you. Deploy, call,
             revert, replay. No Anvil, no Hardhat, no terminal.
           </p>
           <ul className="evm-spotlight__bullets">
             <li><span className="evm-spotlight__dot" /> Snapshot + revert between tests for free</li>
             <li><span className="evm-spotlight__dot" /> <code>evm_increaseTime</code>, <code>evm_mine</code>, <code>evm_setBalance</code> exposed</li>
             <li><span className="evm-spotlight__dot" /> Faucet ships 100 ETH on demand to any address</li>
-            <li><span className="evm-spotlight__dot" /> Same RPC surface as Anvil / Hardhat — viem clients work unchanged</li>
+            <li><span className="evm-spotlight__dot" /> Same RPC surface as Anvil / Hardhat, so your viem clients work unchanged</li>
           </ul>
           <a href="/download" className="evm-spotlight__cta">
             Get the desktop app

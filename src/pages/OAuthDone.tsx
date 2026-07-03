@@ -47,7 +47,7 @@ function readPayload(): Payload {
   return {
     type: "libre-oauth",
     session,
-    error: "Missing status — this page is opened by the OAuth flow.",
+    error: "Missing status. This page is opened by the OAuth flow.",
   };
 }
 

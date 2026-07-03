@@ -60,7 +60,7 @@ const FALLBACK_URL = "https://github.com/InfamousVague/Libre.academy/releases/la
 
 export function Download() {
   useSeo({
-    title: "Download Libre Academy — Free Desktop App for Mac, Windows & Linux",
+    title: "Download Libre Academy: Free Desktop App for Mac, Windows & Linux",
     description: `Download Libre Academy for free. MIT-licensed desktop app with ${LANGUAGES.length} language runtimes, AI tutor, and PDF/EPUB course ingest. No signup, no paywall.`,
     canonicalUrl: "https://libre.academy/download",
   });
@@ -99,9 +99,9 @@ export function Download() {
             Free coding courses on your desktop.
           </h1>
           <p className="download-hero__lede">
-            Libre Academy is a free, MIT-licensed desktop app — a real editor,
+            Libre Academy is a free, MIT-licensed desktop app. You get a real editor,
             hidden-test grading, native runtimes for {LANGUAGES.length} languages,
-            ingest your own books, and a local AI tutor. Install it once and
+            a way to ingest your own books, and a local AI tutor. Install it once and
             everything runs on your machine, online or off.
           </p>
           <div className="download-hero__web">
@@ -110,8 +110,8 @@ export function Download() {
               <Globe size={16} /> Open in Browser
             </a>
             <span className="download-hero__web-note">
-              Prefer not to install? Run it on the web — pick up the desktop app
-              anytime.
+              Prefer not to install? Run it on the web, and grab the desktop app
+              whenever you're ready.
             </span>
           </div>
         </div>
@@ -123,14 +123,14 @@ export function Download() {
           eyebrow="Daily driver"
           title="Desktop app"
           price="Free"
-          summary="The full experience — every language, ingest, AI tutor, native runtimes."
+          summary="The full experience: every language, ingest, AI tutor, and native runtimes."
           features={[
             "PDF + EPUB ingest with the Claude pipeline",
             "Docs-site crawler + challenge-pack generator",
             "Native subprocess runners (C/C++/Java/Kotlin/C#/Swift/Asm)",
             "Local Ollama tutor (zero token cost)",
             "Pop-out workbench, multi-monitor friendly",
-            "Portable .academy archives — share courses with anyone",
+            "Portable .academy archives, so you can share courses with anyone",
           ]}
           // Custom CTA: a split-button DownloadButton that auto-detects
           // the visitor's OS and links DIRECTLY to the latest .dmg/
@@ -155,10 +155,10 @@ export function Download() {
           price="Free"
           summary="Mirror progress, XP, and streak across machines. Opt-in, off by default."
           features={[
-            "Tiny JSON progress records — nothing else stored",
+            "Tiny JSON progress records, and nothing else stored",
             "End-to-end encryption on the wire",
             "One toggle in Settings, no second account to make",
-            "Open source server — self-host if you'd rather",
+            "Open source server, so you can self-host if you'd rather",
             "Lesson contents stay on your disk",
           ]}
           cta={{

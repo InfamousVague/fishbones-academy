@@ -15,8 +15,8 @@ export function BlogPost() {
   const activePost = post !== "loading" ? post : null;
   useSeo({
     title: activePost
-      ? `${activePost.title} — Libre Academy Blog`
-      : "Blog — Libre Academy",
+      ? `${activePost.title} | Libre Academy Blog`
+      : "Blog | Libre Academy",
     description: activePost?.excerpt,
     canonicalUrl: activePost
       ? `https://libre.academy/blog/${activePost.slug}`
